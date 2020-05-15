@@ -1,7 +1,7 @@
 
 
  --Add Your SQL Here
- --ASHISH GUPTA
+ -- ASHISH GUPTA
 
 CREATE DATABASE AirlineDB;
 USE AirlineDB;
