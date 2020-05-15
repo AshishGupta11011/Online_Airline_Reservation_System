@@ -178,3 +178,19 @@ BEGIN
 	Delete from FlightDetails 
 	where FlightId=@FlightId;
 END
+
+----------------------------------------
+-----Mamta Chauhan
+create table Passengers
+(
+ Passenger_Id BIGINT Identity(1000, 1) PRIMARY KEY,
+ Booking_Id NVARCHAR(7) NOT NULL UNIQUE,
+ EmailId NVARCHAR(100) NOT NULL,
+ Name NVARCHAR(100) NOT NULL,
+ Gender CHAR NOT NULL,
+ Passport_No NVARCHAR(7) NOT NULL,
+ Age INT NOT NULL CHECK(AGE >= 18),
+ Nationality NVARCHAR(3) NOT NULL,
+ ContactNo NVARCHAR(10)
+)
+go
