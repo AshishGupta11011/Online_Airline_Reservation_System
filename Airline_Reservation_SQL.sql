@@ -1,5 +1,5 @@
 
-  --Add Your SQL Here
+   --Add Your SQL  Here
 
 
 
@@ -25,7 +25,7 @@ ResidingAddress nvarchar(255)
 -- Ashita Gaur 
 create table Bookings 
 (
- BookingId NVARCHAR(4) NOT NULL PRIMARY KEY,
+ BookingId INT (4) NOT NULL PRIMARY KEY,
  TicketNo NVARCHAR(5) NOT NULL ,
  Class NVARCHAR(1) NOT NULL CHECK(Class IN('B', 'E', 'F')), -- B(Business class), E(Economy class), F(First class)
  FlightCode NVARCHAR(5) NOT NULL,
