@@ -1,5 +1,5 @@
 
-  --Add Your SQL  Here
+   --Add Your SQL  Here
 
 
 
@@ -25,7 +25,7 @@ ResidingAddress nvarchar(255)
 -- Ashita Gaur  
 create table Bookings 
 (
- BookingId NVARCHAR(4) NOT NULL PRIMARY KEY,
+ BookingId INT (4) NOT NULL PRIMARY KEY,
  TicketNo NVARCHAR(5) NOT NULL ,
  Class NVARCHAR(1) NOT NULL CHECK(Class IN('B', 'E', 'F')), -- B(Business class), E(Economy class), F(First class)
  FlightCode NVARCHAR(5) NOT NULL,
@@ -178,3 +178,19 @@ BEGIN
 	Delete from FlightDetails 
 	where FlightId=@FlightId;
 END
+
+----------------------------------------
+-----Mamta Chauhan
+create table Passengers
+(
+ Passenger_Id BIGINT Identity(1000, 1) PRIMARY KEY,
+ Booking_Id NVARCHAR(7) NOT NULL UNIQUE,
+ EmailId NVARCHAR(100) NOT NULL,
+ Name NVARCHAR(100) NOT NULL,
+ Gender CHAR NOT NULL,
+ Passport_No NVARCHAR(7) NOT NULL,
+ Age INT NOT NULL CHECK(AGE >= 18),
+ Nationality NVARCHAR(3) NOT NULL,
+ ContactNo NVARCHAR(10)
+)
+go
