@@ -78,7 +78,7 @@ create table Cancellations
 	CONSTRAINT FK_Psn_Canc FOREIGN KEY(Passenger_Id) REFERENCES Passengers(Passenger_Id),
 	--  FOREIGN KEY with reference to passenger table
 	)
-
+    go
     --stored procedure for cancellations
     create procedure usp_GetAllCancelledTickets
 as
