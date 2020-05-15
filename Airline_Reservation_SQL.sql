@@ -22,7 +22,7 @@ ResidingAddress nvarchar(255)
  
 
 -----------------------------------------------------------------------------------------
--- Ashita Gaur 
+-- Ashita Gaur  
 create table Bookings 
 (
  BookingId NVARCHAR(4) NOT NULL PRIMARY KEY,
