@@ -1,12 +1,25 @@
 
---Add Your SQL Here
+
+ --Add Your SQL Here
+ --ASHISH GUPTA
+
+CREATE DATABASE AirlineDB;
+USE AirlineDB;
+
+CREATE TABLE Customers
+(
+CustomerId int Identity(100, 1) PRIMARY KEY,
+Name nvarchar(100) NOT NULL,
+Email nvarchar(100) NOT NULL,
+Pwd nvarchar(100) NOT NULL,
+DOB date ,
+WalletBalance money,
+ResidingAddress nvarchar(255) 
+)
+ 
 
 -----------------------------------------------------------------------------------------
 -- Ashita Gaur 
-
-create database Airline_Reservation_DB
-use Airline_Reservation_DB
-
 create table Bookings 
 (
  BookingId NVARCHAR(4) NOT NULL PRIMARY KEY,
