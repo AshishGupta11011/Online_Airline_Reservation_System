@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-  --Add Your SQL Here
-=======
 
 
  --Add Your SQL Here
@@ -62,42 +59,4 @@ BEGIN
 END
 
 
->>>>>>> b8e103a42cf4c10496f9dc38edbdbc91d7a99a66
 
----------------------------------------------------------------------------------------------------------------------------------
---Aniket Anand
-create table Cancellations
-(
- Canc_Id bigint identity(1000,1) NOT NULL  PRIMARY KEY ,
- Passenger_Id BIGINT not null unique,
- BookingId int NOT NULL UNIQUE,
- CancDate DATE NOT NULL,
- RefundAmount DECIMAL(7, 2) NOT NULL,
-	CONSTRAINT FK_Bkg_Canc FOREIGN KEY(BookingId) REFERENCES Bookings(BookingId),
-	--foreign key with refrence to bookings table
-	CONSTRAINT FK_Psn_Canc FOREIGN KEY(Passenger_Id) REFERENCES Passengers(Passenger_Id),
-	--  FOREIGN KEY with reference to passenger table
-	)
-
-    --stored procedure for cancellations
-    create procedure usp_GetAllCancelledTickets
-as
-begin
-select * from Cancellations
-end
-
-create procedure usp_GetCancelledTicketById
-@BookingId int
-as 
-begin 
-select * from Cancellations
-where BookingId=@BookingId
-end
-
-create procedure usp_DeleteCancelledTicketById
-@BookingId int
-as
- begin 
- delete from Cancellations
- where BookingId=@BookingId
- end
