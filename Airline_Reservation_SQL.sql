@@ -178,3 +178,4 @@ BEGIN
 	Delete from FlightDetails 
 	where FlightId=@FlightId;
 END
+
