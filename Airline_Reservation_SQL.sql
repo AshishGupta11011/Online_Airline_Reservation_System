@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-  --Add Your SQL Here
-=======
+
+  --Add Your SQL  Here
+
 
 
  --Add Your SQL Here
@@ -62,7 +62,6 @@ BEGIN
 END
 
 
->>>>>>> b8e103a42cf4c10496f9dc38edbdbc91d7a99a66
 
 ---------------------------------------------------------------------------------------------------------------------------------
 --Aniket Anand
@@ -78,13 +77,16 @@ create table Cancellations
 	CONSTRAINT FK_Psn_Canc FOREIGN KEY(Passenger_Id) REFERENCES Passengers(Passenger_Id),
 	--  FOREIGN KEY with reference to passenger table
 	)
-    go
+    GO
+
     --stored procedure for cancellations
     create procedure usp_GetAllCancelledTickets
 as
 begin
 select * from Cancellations
 end
+
+GO
 
 create procedure usp_GetCancelledTicketById
 @BookingId int
@@ -93,7 +95,7 @@ begin
 select * from Cancellations
 where BookingId=@BookingId
 end
-
+GO
 create procedure usp_DeleteCancelledTicketById
 @BookingId int
 as
@@ -101,3 +103,78 @@ as
  delete from Cancellations
  where BookingId=@BookingId
  end
+
+
+ ------------------------------
+ ---ANSHIKA JINDAL
+ Create Table FlightDetails
+(
+ FlightCode nvarchar(6) not null,
+ FlightId int identity(1000,1) primary key,
+ FlightName nvarchar(50)  not Null,
+ [Source] nvarchar(50)  not Null,
+ Destination nvarchar(50)  not Null,
+ DepartureTime time  not Null,
+ ArrivalTime time  not Null,
+ BaggageLimit int  not Null,
+ Food nchar  not Null
+ )
+
+ GO
+ CREATE PROCEDURE  usp_AddFlight
+  (
+@FlightId nvarchar(6),
+ @FlightName nvarchar(50),
+ @Source nvarchar(50),
+ @Destination nvarchar(50),
+ @DepartureTime time,
+ @ArrivalTime time,
+ @BaggageLimit int,
+ @Food nchar
+ )
+  
+AS  
+BEGIN  
+     
+    Insert into FlightDetails (FlightId,FlightName,Source,Destination,DepartureTime,ArrivalTime,BaggageLimit,Food)   
+           Values (@FlightId,@FlightName, @Source,@Destination,@DepartureTime,@ArrivalTime,@BaggageLimit,@Food)  
+  
+END  
+GO  
+
+CREATE PROCEDURE usp_UpdateFlight(
+ @FlightId nvarchar(6),
+ @FlightName nvarchar(50),
+ @Source nvarchar(50),
+ @Destination nvarchar(50),
+ @DepartureTime time,
+ @ArrivalTime time,
+ @BaggageLimit int,
+ @Food nchar
+ ) 
+ as
+BEGIN
+    Update FlightDetails 
+		set 
+			FlightName=@FlightName,
+			[Source]=@Source,
+			Destination=@Destination,
+			DepartureTime=@DepartureTime,
+			ArrivalTime=@ArrivalTime,
+			BaggageLimit=@BaggageLimit,
+			Food=@Food
+				where FlightId=@FlightId;
+
+END
+
+
+GO
+Create procedure usp_DeleteFlight
+(
+@FlightId int
+)
+as
+BEGIN
+	Delete from FlightDetails 
+	where FlightId=@FlightId;
+END
