@@ -12,15 +12,36 @@ using Airline_Reservation.web.Models;
 
 namespace Airline_Reservation.web.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PassengersController : ApiController
     {
-        private AirlineDBEntities db = new AirlineDBEntities();
+        //
+        private AirlineDBEntities db;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public PassengersController()
+        {
+            //
+            db = new AirlineDBEntities();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Passengers
         public IQueryable<Passenger> GetPassengers()
         {
+            //
             return db.Passengers;
         }
+
 
         // GET: api/Passengers/5
         [ResponseType(typeof(Passenger))]
@@ -74,11 +95,24 @@ namespace Airline_Reservation.web.Controllers
         [ResponseType(typeof(Passenger))]
         public IHttpActionResult PostPassenger(Passenger passenger)
         {
+            //generate new passenger id
+            if (db.Passengers.Count() == 0)
+            {
+                passenger.PassengerId = 100;
+            }
+            else
+            {
+                passenger.PassengerId = db.Passengers.Select(temp => temp.PassengerId).Max() + 1;
+            }
+            
+
+            //check for validation
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            //insert data into db
             db.Passengers.Add(passenger);
             db.SaveChanges();
 

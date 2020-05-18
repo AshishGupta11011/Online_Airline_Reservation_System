@@ -31,6 +31,7 @@ namespace Airline_Reservation.web.Models
         public int NoOfSeats { get; set; }
         public decimal TicketFare { get; set; }
         public int CustomerId { get; set; }
+        public string TicketStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cancellation> Cancellations { get; set; }

@@ -18,6 +18,7 @@ namespace Airline_Reservation.web.Models
         public Flight()
         {
             this.Bookings = new HashSet<Booking>();
+            this.Cancellations = new HashSet<Cancellation>();
         }
     
         public int FlightId { get; set; }
@@ -31,5 +32,7 @@ namespace Airline_Reservation.web.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cancellation> Cancellations { get; set; }
     }
 }
