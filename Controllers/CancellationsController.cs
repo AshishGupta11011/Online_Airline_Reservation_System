@@ -55,7 +55,7 @@ namespace Airline_Reservation.web.Controllers
 
         /// <summary>
         /// A method of controller that updates the value of particular entry obtained by it's cancellation id
-        /// </summary>
+        /// </summary>aar
         /// <param name="id">Cacellation Id is the parameter</param>
         /// <param name="cancellation"></param>
         /// <returns>Returns a status code confirming the update</returns>
