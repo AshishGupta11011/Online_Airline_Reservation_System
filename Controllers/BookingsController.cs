@@ -88,18 +88,13 @@ namespace Airline_Reservation.web.Controllers
         public IHttpActionResult PostBooking(Booking booking)
         {
             booking.BookingId = 100 ;
-            for(int i=0; i<200;i++)
-            {
-                booking.BookingId ++;
-            }
+            
             booking.TicketStatus = "NOTC";
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             db.Bookings.Add(booking);
-            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = booking.BookingId }, booking);
         }
