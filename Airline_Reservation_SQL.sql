@@ -23,7 +23,7 @@ PhoneNo bigint not null
  
 
 -----------------------------------------------------------------------------------------
--- Ashita Gaur 
+-- Ashita Gaur  
 create table Bookings 
 (
  BookingId INT Identity(100, 1) NOT NULL PRIMARY KEY,
