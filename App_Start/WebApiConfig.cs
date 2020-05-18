@@ -27,6 +27,8 @@ namespace Airline_Reservation.web
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
 
             config.EnableCors(cors);
+
+           
         }
     }
 }

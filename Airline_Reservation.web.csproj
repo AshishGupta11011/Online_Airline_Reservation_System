@@ -125,17 +125,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Airline_Reservation_SQL.sql" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="index.html" />
+    <Content Include="main-es2015.js" />
+    <Content Include="main-es5.js" />
     <Content Include="Models\AirLineModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AirLineModel.Context.cs</LastGenOutput>
       <DependentUpon>AirLineModel.edmx</DependentUpon>
+      <LastGenOutput>AirLineModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\AirLineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AirLineModel.edmx</DependentUpon>
       <LastGenOutput>AirLineModel.cs</LastGenOutput>
     </Content>
+    <Content Include="polyfills-es2015.js" />
+    <Content Include="polyfills-es5.js" />
+    <Content Include="runtime-es2015.js" />
+    <Content Include="runtime-es5.js" />
+    <Content Include="scripts.js" />
+    <Content Include="styles-es2015.js" />
+    <Content Include="styles-es5.js" />
+    <Content Include="vendor-es2015.js" />
+    <Content Include="vendor-es5.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +192,13 @@
     <Compile Include="Models\Passenger.cs">
       <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\usp_GetAllCancelledTickets_Result.cs">
+      <DependentUpon>AirLineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\usp_GetCancelledTicketById_Result.cs">
+      <DependentUpon>AirLineModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -191,7 +210,18 @@
     <Content Include="Models\AirLineModel.edmx.diagram">
       <DependentUpon>AirLineModel.edmx</DependentUpon>
     </Content>
+    <Content Include="main-es2015.js.map" />
+    <Content Include="main-es5.js.map" />
     <None Include="packages.config" />
+    <Content Include="polyfills-es2015.js.map" />
+    <Content Include="polyfills-es5.js.map" />
+    <Content Include="runtime-es2015.js.map" />
+    <Content Include="runtime-es5.js.map" />
+    <Content Include="scripts.js.map" />
+    <Content Include="styles-es2015.js.map" />
+    <Content Include="styles-es5.js.map" />
+    <Content Include="vendor-es2015.js.map" />
+    <Content Include="vendor-es5.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -200,7 +230,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AngularUI\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
