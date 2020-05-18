@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\raj\Desktop\TRAINING CAPG\Sprint-2 Test\Online_Airline_Reservation_System\Airline_Reservation.web\Models\AirLineModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Mannu\Desktop\Sprint\Online_Airline_Reservation_System\Models\AirLineModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
