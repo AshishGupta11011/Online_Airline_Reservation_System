@@ -17,12 +17,15 @@ namespace Airline_Reservation.web.Controllers
         private AirlineDBEntities db = new AirlineDBEntities();
 
         // GET: api/Customers
+        
         public IQueryable<Customer> GetCustomers()
         {
+            db.Configuration.LazyLoadingEnabled = false;
             return db.Customers;
         }
 
         // GET: api/Customers/5
+        //[Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult GetCustomer(int id)
         {
@@ -31,6 +34,7 @@ namespace Airline_Reservation.web.Controllers
             {
                 return NotFound();
             }
+            db.Configuration.LazyLoadingEnabled = false;
 
             return Ok(customer);
         }
@@ -69,6 +73,7 @@ namespace Airline_Reservation.web.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+       
 
         // POST: api/Customers
         [ResponseType(typeof(Customer))]
@@ -79,10 +84,19 @@ namespace Airline_Reservation.web.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Customers.Add(customer);
-            db.SaveChanges();
+            if ((db.Customers.Count(c => c.Email == customer.Email)) == 0 )
+            {
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.CustomerId }, customer);
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                db.Configuration.LazyLoadingEnabled = false;
+
+                return CreatedAtRoute("DefaultApi", new { id = customer.CustomerId }, customer);
+            }
+            else
+            {
+                return Conflict();
+            }
         }
 
         // DELETE: api/Customers/5

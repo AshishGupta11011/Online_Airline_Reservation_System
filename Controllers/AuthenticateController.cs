@@ -1,0 +1,82 @@
+﻿using Airline_Reservation.web.Models;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
+using System.Web.Http;
+using System.Web.Http.Description;
+
+namespace Airline_Reservation.web.Controllers
+{
+    public class AuthenticateController : ApiController
+    {
+
+
+        private AirlineDBEntities db = new AirlineDBEntities();
+
+
+        // POST: api/Authenticate
+        //[ResponseType(typeof(User))]
+        public object PostAuthenticate(User user)
+        {
+          Customer isUser =  db.Customers.Where(c => c.Email == user.Email).FirstOrDefault();
+
+            if (isUser != null)
+            {
+                if (isUser.Pwd == user.Password)
+                {
+                     return  new { data = GetToken(user) , Id =  isUser.CustomerId };
+                    
+                        //CreatedAtRoute("DefaultApi",token, isUser);
+
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "Invalid Password");
+                }
+               
+            }
+            else
+            {
+                return Content(HttpStatusCode.NotFound, "User Does Not Exists");
+            }
+            
+        }
+
+        /// <summary>
+        /// Method to generate  Json Web Tokens(JWT)
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+         public string GetToken(User user)
+        {
+
+            string key = "ashish1234jhagkgdjgdfkjagfddhldfkughlkjdsahgkjg";
+            var issuer = "www.mysite.com";
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var permclaims = new List<Claim>();
+            permclaims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            permclaims.Add(new Claim("Email", $"{user.Email}"));
+            permclaims.Add(new Claim("valid", "1"));
+
+            var token = new JwtSecurityToken(issuer,
+                issuer,
+                permclaims,
+                expires: DateTime.Now.AddDays(2),
+                signingCredentials: credentials);
+
+            var jwt_token = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt_token;
+
+
+        }
+        
+    }
+}
