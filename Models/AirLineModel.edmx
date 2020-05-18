@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AirlineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AirlineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bookings">
           <Key>
             <PropertyRef Name="BookingId" />
@@ -52,8 +52,8 @@
           <Property Name="FlightName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Source" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="Destination" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="DepartureTime" Type="datetime" Nullable="false" />
+          <Property Name="ArrivalTime" Type="datetime" Nullable="false" />
           <Property Name="BaggageLimit" Type="int" Nullable="false" />
           <Property Name="AvailableSeats" Type="int" Nullable="false" />
         </EntityType>
@@ -134,10 +134,9 @@
           <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
           <Parameter Name="Source" Type="nvarchar" Mode="In" />
           <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="time" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
+          <Parameter Name="DepartureTime" Type="datetime" Mode="In" />
+          <Parameter Name="ArrivalTime" Type="datetime" Mode="In" />
           <Parameter Name="BaggageLimit" Type="int" Mode="In" />
-          <Parameter Name="Food" Type="nchar" Mode="In" />
           <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_DeleteCancelledTicketById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -155,8 +154,8 @@
           <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
           <Parameter Name="Source" Type="nvarchar" Mode="In" />
           <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="time" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
+          <Parameter Name="DepartureTime" Type="datetime" Mode="In" />
+          <Parameter Name="ArrivalTime" Type="datetime" Mode="In" />
           <Parameter Name="BaggageLimit" Type="int" Mode="In" />
           <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
@@ -187,7 +186,8 @@
             <End Role="Cancellations" EntitySet="Cancellations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AirlineDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -203,27 +203,25 @@
           <Property Name="DateOfBooking" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfJourney" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="NoOfSeats" Type="Int32" Nullable="false" />
+          <Property Name="TicketStatus" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="TicketFare" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cancellations" Relationship="Self.FK_Bkg_Canc" FromRole="Bookings" ToRole="Cancellations" />
           <NavigationProperty Name="Passengers" Relationship="Self.FK_Bkg_Canc1" FromRole="Bookings" ToRole="Passengers" />
-          <NavigationProperty Name="Bookings1" Relationship="Self.FK_BookId_Psn" FromRole="Bookings" ToRole="Bookings1" />
-          <NavigationProperty Name="Booking1" Relationship="Self.FK_BookId_Psn" FromRole="Bookings1" ToRole="Bookings" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Id" FromRole="Bookings" ToRole="Customers" />
           <NavigationProperty Name="Flight" Relationship="Self.FK_Flight_Id" FromRole="Bookings" ToRole="Flights" />
-          <Property Name="TicketStatus" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Cancellation">
           <Key>
             <PropertyRef Name="CancellationId" />
           </Key>
           <Property Name="CancellationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightId" Type="Int32" Nullable="false" />
           <Property Name="BookingId" Type="Int32" Nullable="false" />
           <Property Name="DateOfCancellation" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RefundAmount" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
           <NavigationProperty Name="Booking" Relationship="Self.FK_Bkg_Canc" FromRole="Cancellations" ToRole="Bookings" />
-          <Property Name="FlightId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Flight" Relationship="AirlineDBModel.FK_Flt_Can" FromRole="Cancellation" ToRole="Flight" />
+          <NavigationProperty Name="Flight" Relationship="Self.FK_Flt_Can" FromRole="Cancellations" ToRole="Flights" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -247,12 +245,12 @@
           <Property Name="FlightName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Source" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Destination" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="DepartureTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ArrivalTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="BaggageLimit" Type="Int32" Nullable="false" />
           <Property Name="AvailableSeats" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Flight_Id" FromRole="Flights" ToRole="Bookings" />
-          <NavigationProperty Name="Cancellations" Relationship="AirlineDBModel.FK_Flt_Can" FromRole="Flight" ToRole="Cancellation" />
+          <NavigationProperty Name="Cancellations" Relationship="Self.FK_Flt_Can" FromRole="Flights" ToRole="Cancellations" />
         </EntityType>
         <EntityType Name="Passenger">
           <Key>
@@ -291,18 +289,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BookId_Psn">
-          <End Role="Bookings" Type="Self.Booking" Multiplicity="1" />
-          <End Role="Bookings1" Type="Self.Booking" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Bookings">
-              <PropertyRef Name="BookingId" />
-            </Principal>
-            <Dependent Role="Bookings1">
-              <PropertyRef Name="BookingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Customer_Id">
           <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
           <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
@@ -327,6 +313,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Flt_Can">
+          <End Role="Flights" Type="Self.Flight" Multiplicity="1" />
+          <End Role="Cancellations" Type="Self.Cancellation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="FlightId" />
+            </Principal>
+            <Dependent Role="Cancellations">
+              <PropertyRef Name="FlightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AirlineDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookings" EntityType="Self.Booking" />
           <EntitySet Name="Cancellations" EntityType="Self.Cancellation" />
@@ -341,10 +339,6 @@
             <End Role="Bookings" EntitySet="Bookings" />
             <End Role="Passengers" EntitySet="Passengers" />
           </AssociationSet>
-          <AssociationSet Name="FK_BookId_Psn" Association="Self.FK_BookId_Psn">
-            <End Role="Bookings" EntitySet="Bookings" />
-            <End Role="Bookings1" EntitySet="Bookings" />
-          </AssociationSet>
           <AssociationSet Name="FK_Customer_Id" Association="Self.FK_Customer_Id">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Bookings" EntitySet="Bookings" />
@@ -353,74 +347,55 @@
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Bookings" EntitySet="Bookings" />
           </AssociationSet>
-          <FunctionImport Name="sp_CreateCustomer">
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Pwd" Mode="In" Type="String" />
-            <Parameter Name="DOB" Mode="In" Type="DateTime" />
-            <Parameter Name="WalletBalance" Mode="In" Type="Decimal" />
-            <Parameter Name="ResidingAddress" Mode="In" Type="String" />
-          </FunctionImport>
+          <AssociationSet Name="FK_Flt_Can" Association="Self.FK_Flt_Can">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Cancellations" EntitySet="Cancellations" />
+          </AssociationSet>
           <FunctionImport Name="usp_AddFlight">
             <Parameter Name="FlightId" Mode="In" Type="Int32" />
             <Parameter Name="FlightName" Mode="In" Type="String" />
             <Parameter Name="Source" Mode="In" Type="String" />
             <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
+            <Parameter Name="DepartureTime" Mode="In" Type="DateTime" />
+            <Parameter Name="ArrivalTime" Mode="In" Type="DateTime" />
             <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
-            <Parameter Name="Food" Mode="In" Type="String" />
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteCancelledTicketById">
-          <Parameter Name="BookingId" Mode="In" Type="Int32" />
+            <Parameter Name="BookingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteFlight">
-          <Parameter Name="FlightId" Mode="In" Type="Int32" />
+            <Parameter Name="FlightId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAllCancelledTickets" ReturnType="Collection(AirlineDBModel.usp_GetAllCancelledTickets_Result)" />
           <FunctionImport Name="usp_GetCancelledTicketById" ReturnType="Collection(AirlineDBModel.usp_GetCancelledTicketById_Result)">
-          <Parameter Name="BookingId" Mode="In" Type="Int32" />
+            <Parameter Name="BookingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateFlight">
             <Parameter Name="FlightId" Mode="In" Type="Int32" />
             <Parameter Name="FlightName" Mode="In" Type="String" />
             <Parameter Name="Source" Mode="In" Type="String" />
             <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
+            <Parameter Name="DepartureTime" Mode="In" Type="DateTime" />
+            <Parameter Name="ArrivalTime" Mode="In" Type="DateTime" />
             <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
-          <AssociationSet Name="FK_Flt_Can" Association="AirlineDBModel.FK_Flt_Can">
-            <End Role="Flight" EntitySet="Flights" />
-            <End Role="Cancellation" EntitySet="Cancellations" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="usp_GetAllCancelledTickets_Result">
           <Property Type="Int64" Name="CancellationId" Nullable="false" />
+          <Property Type="Int32" Name="FlightId" Nullable="false" />
           <Property Type="Int32" Name="BookingId" Nullable="false" />
           <Property Type="DateTime" Name="DateOfCancellation" Nullable="false" />
           <Property Type="Decimal" Name="RefundAmount" Nullable="false" Precision="7" Scale="2" />
         </ComplexType>
         <ComplexType Name="usp_GetCancelledTicketById_Result">
           <Property Type="Int64" Name="CancellationId" Nullable="false" />
+          <Property Type="Int32" Name="FlightId" Nullable="false" />
           <Property Type="Int32" Name="BookingId" Nullable="false" />
           <Property Type="DateTime" Name="DateOfCancellation" Nullable="false" />
           <Property Type="Decimal" Name="RefundAmount" Nullable="false" Precision="7" Scale="2" />
         </ComplexType>
-        <Association Name="FK_Flt_Can">
-          <End Type="AirlineDBModel.Flight" Role="Flight" Multiplicity="1" />
-          <End Type="AirlineDBModel.Cancellation" Role="Cancellation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Flight">
-              <PropertyRef Name="FlightId" />
-            </Principal>
-            <Dependent Role="Cancellation">
-              <PropertyRef Name="FlightId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -430,7 +405,6 @@
           <EntitySetMapping Name="Bookings">
             <EntityTypeMapping TypeName="AirlineDBModel.Booking">
               <MappingFragment StoreEntitySet="Bookings">
-                <ScalarProperty Name="TicketStatus" ColumnName="TicketStatus" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="Class" ColumnName="Class" />
@@ -439,6 +413,7 @@
                 <ScalarProperty Name="DateOfBooking" ColumnName="DateOfBooking" />
                 <ScalarProperty Name="DateOfJourney" ColumnName="DateOfJourney" />
                 <ScalarProperty Name="NoOfSeats" ColumnName="NoOfSeats" />
+                <ScalarProperty Name="TicketStatus" ColumnName="TicketStatus" />
                 <ScalarProperty Name="TicketFare" ColumnName="TicketFare" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
@@ -447,8 +422,8 @@
           <EntitySetMapping Name="Cancellations">
             <EntityTypeMapping TypeName="AirlineDBModel.Cancellation">
               <MappingFragment StoreEntitySet="Cancellations">
-                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="DateOfCancellation" ColumnName="DateOfCancellation" />
                 <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
@@ -503,6 +478,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="AirlineDBModel.usp_GetAllCancelledTickets_Result">
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="DateOfCancellation" ColumnName="DateOfCancellation" />
                 <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
@@ -513,6 +489,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="AirlineDBModel.usp_GetCancelledTicketById_Result">
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="DateOfCancellation" ColumnName="DateOfCancellation" />
                 <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
