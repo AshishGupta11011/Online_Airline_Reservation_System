@@ -23,7 +23,7 @@ PhoneNo bigint not null
  
 
 -----------------------------------------------------------------------------------------
--- Ashita Gaur 
+-- Ashita Gaur  
 create table Bookings 
 (
  BookingId INT Identity(100, 1) NOT NULL PRIMARY KEY,
@@ -186,7 +186,7 @@ create table Passengers
  PassengerId BIGINT Identity(100, 1) PRIMARY KEY,
  BookingId int NOT NULL UNIQUE,
  EmailId NVARCHAR(100) NOT NULL,
-  Gender NCHAR(1) NOT NULL CHECK(Gender IN('M', 'F')), -- M(Male), F(Female)
+ Gender NCHAR(1) NOT NULL CHECK(Gender IN('M', 'F')), -- M(Male), F(Female)
  [Name] NVARCHAR(100) NOT NULL,
  Age INT NOT NULL ,
  Nationality NVARCHAR(3) NOT NULL,

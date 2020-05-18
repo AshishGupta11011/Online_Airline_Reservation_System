@@ -29,15 +29,15 @@ namespace Airline_Reservation.web.Models
         public System.DateTime DateOfBooking { get; set; }
         public System.DateTime DateOfJourney { get; set; }
         public int NoOfSeats { get; set; }
+        public string TicketStatus { get; set; }
         public decimal TicketFare { get; set; }
         public int CustomerId { get; set; }
+        public string TicketStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cancellation> Cancellations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Passenger> Passengers { get; set; }
-        public virtual Booking Bookings1 { get; set; }
-        public virtual Booking Booking1 { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Flight Flight { get; set; }
     }

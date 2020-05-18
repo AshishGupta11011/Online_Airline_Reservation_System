@@ -15,6 +15,7 @@
         <AssociationConnector Association="AirlineDBModel.FK_BookId_Psn" ManuallyRouted="false" />
         <AssociationConnector Association="AirlineDBModel.FK_Customer_Id" ManuallyRouted="false" />
         <AssociationConnector Association="AirlineDBModel.FK_Flight_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="AirlineDBModel.FK_Flt_Can" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
