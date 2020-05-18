@@ -176,12 +176,6 @@
       <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\usp_GetAllCancelledTickets_Result.cs">
-      <DependentUpon>AirLineModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\usp_GetCancelledTicketById_Result.cs">
-      <DependentUpon>AirLineModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
