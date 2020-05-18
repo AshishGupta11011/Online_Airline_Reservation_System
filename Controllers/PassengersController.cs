@@ -13,7 +13,7 @@ using Airline_Reservation.web.Models;
 namespace Airline_Reservation.web.Controllers
 {
     /// <summary>
-    /// 
+    /// passengers class derived from ApiController
     /// </summary>
     public class PassengersController : ApiController
     {
