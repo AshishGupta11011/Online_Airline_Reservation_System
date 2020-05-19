@@ -95,6 +95,7 @@ namespace Airline_Reservation.web.Controllers
                 return BadRequest(ModelState);
             }
             db.Bookings.Add(booking);
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = booking.BookingId }, booking);
         }
