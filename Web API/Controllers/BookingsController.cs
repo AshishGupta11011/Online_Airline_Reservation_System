@@ -88,13 +88,19 @@ namespace BookingWebApi.Controllers
         [ResponseType(typeof(Booking))]
         public IHttpActionResult DeleteBooking(int id)
         {
+            //Finds Booking data from booking tables and deletes it deatils 
             Booking booking = db.Bookings.Find(id);
+
+            //If booking is null it shows not that it is not found 
             if (booking == null)
             {
                 return NotFound();
             }
+            //from booking tables  deletes it deatils
 
             db.Bookings.Remove(booking);
+            //Save all cahnges made in the context in database
+
             db.SaveChanges();
 
             return Ok(booking);
