@@ -76,7 +76,13 @@ DROP TABLE Customer
  
 
 -----------------------------------------------------------------------------------------
--- Ashita Gaur  
+ --Developer: <Ashita Gaur>
+ --Create Date: <17th May,2020>
+ --Last Updated Date: <20th May,2020>
+ --Description:To perform Business logic and accordingly return response to Bookings .
+ --Task:CRUD with opreation with flight
+ ------------------------------------------------------------------------------------------
+ 
 create table Bookings 
 (
  BookingId INT Identity(100, 1) NOT NULL PRIMARY KEY,
