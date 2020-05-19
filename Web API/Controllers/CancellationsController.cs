@@ -3,6 +3,8 @@
 //Created       :- 14/05/2020
 //Modified      :- 19/05/2020
 
+
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +17,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Airline_Reservation.web.Models;
 
+
 namespace Airline_Reservation.web.Controllers
 {
     /// <summary>
@@ -23,17 +26,16 @@ namespace Airline_Reservation.web.Controllers
     public class CancellationsController : ApiController
     {
         //Creation of DBContext class object
-        CancellationsController()
-        {
-            AirlineDBEntities db = new AirlineDBEntities();
-        }
+        
+            Models.AirlineDBEntities db = new Models.AirlineDBEntities();
+        
 
         /// <summary>
         /// A method of controller that returns list of cancelled tickets
         /// </summary>
         /// <returns>List of Cancelled tickets</returns>
         // GET: api/Cancellations
-        public IQueryable<Cancellation> GetCancellations()
+        public IQueryable<Models.Cancellation> GetCancellations()
         {
             return db.Cancellations;
         }
