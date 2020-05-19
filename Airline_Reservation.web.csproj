@@ -132,13 +132,16 @@
     <Content Include="main-es5.js" />
     <Content Include="Models\AirLineModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AirLineModel.edmx</DependentUpon>
       <LastGenOutput>AirLineModel.Context.cs</LastGenOutput>
+      <DependentUpon>AirLineModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\AirLineModel.edmx.diagram">
+      <DependentUpon>AirLineModel.edmx</DependentUpon>
     </Content>
     <Content Include="Models\AirLineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AirLineModel.edmx</DependentUpon>
       <LastGenOutput>AirLineModel.cs</LastGenOutput>
+      <DependentUpon>AirLineModel.edmx</DependentUpon>
     </Content>
     <Content Include="polyfills-es2015.js" />
     <Content Include="polyfills-es5.js" />
@@ -163,14 +166,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AirLineModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>AirLineModel.Context.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\AirLineModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>AirLineModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\AirLineModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -203,15 +206,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="main-es2015.js.map" />
+    <Content Include="main-es5.js.map" />
     <EntityDeploy Include="Models\AirLineModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AirLineModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\AirLineModel.edmx.diagram">
-      <DependentUpon>AirLineModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="main-es2015.js.map" />
-    <Content Include="main-es5.js.map" />
     <None Include="packages.config" />
     <Content Include="polyfills-es2015.js.map" />
     <Content Include="polyfills-es5.js.map" />

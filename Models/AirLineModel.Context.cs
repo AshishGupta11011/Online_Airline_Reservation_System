@@ -20,6 +20,8 @@ namespace Airline_Reservation.web.Models
         public AirlineDBEntities()
             : base("name=AirlineDBEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,7 +35,7 @@ namespace Airline_Reservation.web.Models
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Passenger> Passengers { get; set; }
     
-        public virtual int usp_AddFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.DateTime> departureTime, Nullable<System.DateTime> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
+        public virtual int usp_AddFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.TimeSpan> departureTime, Nullable<System.TimeSpan> arrivalTime, Nullable<int> baggageLimit, string food, Nullable<int> availableSeats)
         {
             var flightIdParameter = flightId.HasValue ?
                 new ObjectParameter("FlightId", flightId) :
@@ -53,21 +55,25 @@ namespace Airline_Reservation.web.Models
     
             var departureTimeParameter = departureTime.HasValue ?
                 new ObjectParameter("DepartureTime", departureTime) :
-                new ObjectParameter("DepartureTime", typeof(System.DateTime));
+                new ObjectParameter("DepartureTime", typeof(System.TimeSpan));
     
             var arrivalTimeParameter = arrivalTime.HasValue ?
                 new ObjectParameter("ArrivalTime", arrivalTime) :
-                new ObjectParameter("ArrivalTime", typeof(System.DateTime));
+                new ObjectParameter("ArrivalTime", typeof(System.TimeSpan));
     
             var baggageLimitParameter = baggageLimit.HasValue ?
                 new ObjectParameter("BaggageLimit", baggageLimit) :
                 new ObjectParameter("BaggageLimit", typeof(int));
     
+            var foodParameter = food != null ?
+                new ObjectParameter("Food", food) :
+                new ObjectParameter("Food", typeof(string));
+    
             var availableSeatsParameter = availableSeats.HasValue ?
                 new ObjectParameter("AvailableSeats", availableSeats) :
                 new ObjectParameter("AvailableSeats", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddFlight", flightIdParameter, flightNameParameter, sourceParameter, destinationParameter, departureTimeParameter, arrivalTimeParameter, baggageLimitParameter, availableSeatsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddFlight", flightIdParameter, flightNameParameter, sourceParameter, destinationParameter, departureTimeParameter, arrivalTimeParameter, baggageLimitParameter, foodParameter, availableSeatsParameter);
         }
     
         public virtual int usp_DeleteCancelledTicketById(Nullable<int> bookingId)
@@ -102,7 +108,7 @@ namespace Airline_Reservation.web.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCancelledTicketById_Result>("usp_GetCancelledTicketById", bookingIdParameter);
         }
     
-        public virtual int usp_UpdateFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.DateTime> departureTime, Nullable<System.DateTime> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
+        public virtual int usp_UpdateFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.TimeSpan> departureTime, Nullable<System.TimeSpan> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
         {
             var flightIdParameter = flightId.HasValue ?
                 new ObjectParameter("FlightId", flightId) :
@@ -122,11 +128,11 @@ namespace Airline_Reservation.web.Models
     
             var departureTimeParameter = departureTime.HasValue ?
                 new ObjectParameter("DepartureTime", departureTime) :
-                new ObjectParameter("DepartureTime", typeof(System.DateTime));
+                new ObjectParameter("DepartureTime", typeof(System.TimeSpan));
     
             var arrivalTimeParameter = arrivalTime.HasValue ?
                 new ObjectParameter("ArrivalTime", arrivalTime) :
-                new ObjectParameter("ArrivalTime", typeof(System.DateTime));
+                new ObjectParameter("ArrivalTime", typeof(System.TimeSpan));
     
             var baggageLimitParameter = baggageLimit.HasValue ?
                 new ObjectParameter("BaggageLimit", baggageLimit) :
