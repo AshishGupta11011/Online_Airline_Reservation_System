@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Passenger } from '../../Models/passenger.model';
-import { PassengerService } from '../../Services/passenger.service';
-
+import { PassengerService } from '../passenger.service';
+import { Passenger} from '../passenger.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-passenger-list',
@@ -11,24 +11,29 @@ import { PassengerService } from '../../Services/passenger.service';
 export class PassengerListComponent implements OnInit {
   passengerList: Passenger[];
 
-  constructor( private service:PassengerService) { }
+  constructor(private service:PassengerService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log('CALLED: ');
     this.service.getPassenger().subscribe((passengerDetail: Passenger[]) => {
       this.passengerList = passengerDetail;
+      console.log(passengerDetail);
     });
-    // this.passengerDetails = this.service.passengerDetails;
-    // console.log('TEST' + this.passengerDetails['PassengerId']);
-    // console.log('TEST1' + this.passengerDetails.PassengerId);
   }
  
 
  //on edit the passengers
-  onEditClick(){
-   // this.service.editPassenger(PassengerId).subscribe(passengerDetail:passenger[]=>{ console.log(this.passengerDetails['PassengerId']);});
+  onEditClick(id: number){
+    const passengerId = this.passengerList[id]['PassengerId'];
+    this.router.navigate(['/Edit', passengerId]);
   }
 
 //on delete the passengers
-  onDeleteClick(){}
-
+  onDeleteClick(id: number){
+    const passengerId = this.passengerList[id]['PassengerId'];
+    this.service.deletePassenger(passengerId.toString()).subscribe((response) => {
+      console.log(response);
+    });
+    this.passengerList = [];
+  }
 }

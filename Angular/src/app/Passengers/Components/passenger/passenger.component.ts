@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Passenger} from '../passenger.model';
+import { PassengerService } from '../passenger.service';
 import {  FormGroup ,Validators,FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
-import { Passenger } from '../../Models/passenger.model';
-import { PassengerService } from '../../Services/passenger.service';
+
 
 @Component({
   selector: 'app-passenger',
   templateUrl: './passenger.component.html',
   styleUrls: ['./passenger.component.css']
 })
+////After that add below code which will be used to get the data from the service
 export class PassengerComponent implements OnInit {
 
-  //properties
+  //properties of passenger
   passengers: Passenger;
+  
   //create property for reactive form
   newForm: FormGroup;
 
@@ -38,14 +40,14 @@ export class PassengerComponent implements OnInit {
    //button methods
    //add button
 
-     onAddClick(){
+     onAddClick() {
         let passenger: Passenger = {
           BookingId: this.newForm.get('BookingId').value,
           EmailId: this.newForm.get('EmailId').value,
           Gender: this.newForm.get('Gender').value,
           Name: this.newForm.get('Name').value,
           Age: this.newForm.get('Age').value,
-          Nationality: this.newForm.get('Nationality').value.substring(0, 3).toUpperCase()
+          Nationality: this.newForm.get('Nationality').value.substring(0, 3)
         };
         console.log(this.newForm.value);
         this.service.addPassenger(passenger).subscribe(resData => {

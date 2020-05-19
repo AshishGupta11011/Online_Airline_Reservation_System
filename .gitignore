@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Web API/Interfaces/IFlightService.cs
+/Web API/Airline_Services/FlightService.cs
+/Web API/Airline_Services/FlightException.cs
+/Web API/Airline_Interface/IFlightService.cs
