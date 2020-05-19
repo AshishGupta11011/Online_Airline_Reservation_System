@@ -1,4 +1,16 @@
-﻿using System;
+﻿
+//-----------------------------------------------------------------------------------------
+// Developer    :  ASHISH GUPTA
+// File Name    :  CustomersController.cs
+// Create Date  :  <16th May,2020>
+// Last Updated :  <20th May,2020>
+// Description  :  To Handles Client requests and  perform Business logic and  accordingly return response to Client.
+// Task         :  CRUD with opreation with Customers table in database
+// ------------------------------------------------------------------------------------------
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -20,7 +32,10 @@ namespace Airline_Reservation.web.Controllers
         private AirLineDBEntities db = new AirLineDBEntities();
 
         // GET: api/Customers
-        
+        /// <summary>
+        /// method to get list of all customers
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [ResponseType(typeof(IQueryable<Customer>))]
         public IHttpActionResult GetCustomers()
@@ -42,6 +57,11 @@ namespace Airline_Reservation.web.Controllers
         }
 
         // GET: api/Customers/5
+        /// <summary>
+        /// method to get customer by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult GetCustomer(int id)
@@ -58,6 +78,12 @@ namespace Airline_Reservation.web.Controllers
 
 
         // PUT: api/Customers/5
+        /// <summary>
+        /// method to update cutomer details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCustomer(int id, Customer customer)
@@ -95,8 +121,12 @@ namespace Airline_Reservation.web.Controllers
        
 
         // POST: api/Customers
+        /// <summary>
+        /// Method to Add Customer
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Customer))]
-        
         public IHttpActionResult PostCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
@@ -120,6 +150,11 @@ namespace Airline_Reservation.web.Controllers
         }
 
         // DELETE: api/Customers/5
+        /// <summary>
+        /// Method to delete Customer By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Customer))]
         [Authorize]
         public IHttpActionResult DeleteCustomer(int id)

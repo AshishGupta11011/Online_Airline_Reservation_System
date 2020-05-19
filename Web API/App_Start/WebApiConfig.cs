@@ -24,6 +24,9 @@ namespace Airline_Reservation.web
                 defaults: new { id = RouteParameter.Optional }
             );
 
+ //----------Edited By [ASHISH GUPTA]
+
+            // Added Cors Functionality To Allow Cross-origin resource sharing   
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
 
             config.EnableCors(cors);
