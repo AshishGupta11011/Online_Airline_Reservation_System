@@ -1,4 +1,9 @@
-﻿using System;
+﻿//Developer Name:- Aniket Anand
+//Module Name   :- Cancellation Controller
+//Created       :- 14/05/2020
+//Modified      :- 19/05/2020
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,8 +23,10 @@ namespace Airline_Reservation.web.Controllers
     public class CancellationsController : ApiController
     {
         //Creation of DBContext class object
-        private AirlineDBEntities db = new AirlineDBEntities();
-
+        CancellationsController()
+        {
+            AirlineDBEntities db = new AirlineDBEntities();
+        }
 
         /// <summary>
         /// A method of controller that returns list of cancelled tickets

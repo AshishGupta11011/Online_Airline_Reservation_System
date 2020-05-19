@@ -8,7 +8,7 @@
 
 CREATE DATABASE AirlineDB;
 USE AirlineDB;
-
+ --Table for Customer
 CREATE TABLE Customers
 (
 CustomerId int Identity(100, 1) PRIMARY KEY,
@@ -20,10 +20,69 @@ WalletBalance bigint,
 ResidingAddress nvarchar(255) ,
 PhoneNo bigint not null
 )
+
+GO
+
+--Stored Procedurs to Add Customer
+ALTER PROC sp_CreateCustomer
+(@Name nvarchar(100) ,
+@Email nvarchar(100) ,
+@Pwd nvarchar(100),
+@DOB date ,
+@WalletBalance money,
+@ResidingAddress nvarchar(255) )
+AS 
+BEGIN
+if @Name is not null AND @Email is not null AND @Pwd is not null
+INSERT INTO Customers (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress)
+VALUES(@Name,@Email,@Pwd,@DOB,@WalletBalance,@ResidingAddress)
+Else 
+ Raiserror('Inavlid values pasased',16,1)
+END
+
+GO
+
+EXEC sp_CreateCustomer 'Ashish',null,'ashish','01-01-01',1090,'hgsfakjkshaksj'
+
+GO
+
+
+--Stored Procedurs to Update Customer
+CREATE PROC sp_UpdateCustomer
+(@Name nvarchar(100) ,
+@Email nvarchar(100) ,
+@Pwd nvarchar(100),
+@DOB date ,
+@WalletBalance money,
+@ResidingAddress nvarchar(255),
+@ConditionID int )
+AS 
+BEGIN
+if @Name is not null AND @Email is not null AND @Pwd is not null
+UPDATE Customers 
+SET Name = @Name ,Email = @Email,Pwd = @Pwd,DOB = @DOB,WalletBalance= @WalletBalance ,ResidingAddress = @ResidingAddress
+WHERE CustomerId = @ConditionID
+Else 
+ Raiserror('Inavlid values pasased',16,1)
+END
+GO
+
+
+SElect * FROM Customer
+
+DROP TABLE Customer
+
+
  
 
 -----------------------------------------------------------------------------------------
--- Ashita Gaur  
+ --Developer: <Ashita Gaur>
+ --Create Date: <17th May,2020>
+ --Last Updated Date: <20th May,2020>
+ --Description:To perform Business logic and accordingly return response to Bookings .
+ --Task:CRUD with opreation with flight
+ ------------------------------------------------------------------------------------------
+ 
 create table Bookings 
 (
  BookingId INT Identity(100, 1) NOT NULL PRIMARY KEY,

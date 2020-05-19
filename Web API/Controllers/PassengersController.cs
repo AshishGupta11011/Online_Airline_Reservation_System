@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +19,7 @@ namespace Airline_Reservation.web.Controllers
     /// </summary>
     public class PassengersController : ApiController
     {
-        //
+        //This is class of AirlineDbEntities
         private AirlineDBEntities db;
 
 
@@ -26,13 +28,14 @@ namespace Airline_Reservation.web.Controllers
         /// </summary>
         public PassengersController()
         {
-            //
+            //Creation of DBContext class object
             db = new AirlineDBEntities();
         }
 
 
         /// <summary>
-        /// 
+        /// Get all the Passenger avialable
+        /// GET :api/Passengers
         /// </summary>
         /// <returns></returns>
         // GET: api/Passengers
@@ -41,7 +44,12 @@ namespace Airline_Reservation.web.Controllers
             //
             return db.Passengers;
         }
-
+        /// <summary>
+        /// Get a single passenger
+        /// GET:api:/Passengers/5
+        /// </summary>
+        /// <param name="passenger id "></param>
+        /// <returns></returns>
 
         // GET: api/Passengers/5
         [ResponseType(typeof(Passenger))]
@@ -56,6 +64,7 @@ namespace Airline_Reservation.web.Controllers
             return Ok(passenger);
         }
 
+        ///
         // PUT: api/Passengers/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutPassenger(long id, Passenger passenger)
