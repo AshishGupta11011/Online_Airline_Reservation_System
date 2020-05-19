@@ -25,8 +25,8 @@ namespace Airline_Reservation.web.Models
         public string FlightName { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
-        public System.DateTime DepartureTime { get; set; }
-        public System.DateTime ArrivalTime { get; set; }
+        public System.TimeSpan DepartureTime { get; set; }
+        public System.TimeSpan ArrivalTime { get; set; }
         public int BaggageLimit { get; set; }
         public int AvailableSeats { get; set; }
     

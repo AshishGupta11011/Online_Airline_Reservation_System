@@ -96,15 +96,15 @@ namespace Airline_Reservation.web.Controllers
         public IHttpActionResult PostPassenger(Passenger passenger)
         {
             //generate new passenger id
-            if (db.Passengers.Count() == 0)
-            {
-                passenger.PassengerId = 100;
-            }
-            else
-            {
-                passenger.PassengerId = db.Passengers.Select(temp => temp.PassengerId).Max() + 1;
-            }
-            
+            //if (db.Passengers.Count() == 0)
+            //{
+            //    passenger.PassengerId = 100;
+            //}
+            //else
+            //{
+            //    passenger.PassengerId = db.Passengers.Select(temp => temp.PassengerId).Max() + 1;
+            //}
+
 
             //check for validation
             if (!ModelState.IsValid)

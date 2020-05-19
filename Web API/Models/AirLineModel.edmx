@@ -52,8 +52,8 @@
           <Property Name="FlightName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Source" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="Destination" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="DepartureTime" Type="datetime" Nullable="false" />
-          <Property Name="ArrivalTime" Type="datetime" Nullable="false" />
+          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
           <Property Name="BaggageLimit" Type="int" Nullable="false" />
           <Property Name="AvailableSeats" Type="int" Nullable="false" />
         </EntityType>
@@ -134,9 +134,10 @@
           <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
           <Parameter Name="Source" Type="nvarchar" Mode="In" />
           <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="datetime" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="datetime" Mode="In" />
+          <Parameter Name="DepartureTime" Type="time" Mode="In" />
+          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
           <Parameter Name="BaggageLimit" Type="int" Mode="In" />
+          <Parameter Name="Food" Type="nchar" Mode="In" />
           <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_DeleteCancelledTicketById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -154,8 +155,8 @@
           <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
           <Parameter Name="Source" Type="nvarchar" Mode="In" />
           <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="datetime" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="datetime" Mode="In" />
+          <Parameter Name="DepartureTime" Type="time" Mode="In" />
+          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
           <Parameter Name="BaggageLimit" Type="int" Mode="In" />
           <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
@@ -245,8 +246,8 @@
           <Property Name="FlightName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Source" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Destination" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartureTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ArrivalTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
           <Property Name="BaggageLimit" Type="Int32" Nullable="false" />
           <Property Name="AvailableSeats" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Flight_Id" FromRole="Flights" ToRole="Bookings" />
@@ -356,9 +357,10 @@
             <Parameter Name="FlightName" Mode="In" Type="String" />
             <Parameter Name="Source" Mode="In" Type="String" />
             <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="DateTime" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
+            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
             <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
+            <Parameter Name="Food" Mode="In" Type="String" />
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteCancelledTicketById">
@@ -376,8 +378,8 @@
             <Parameter Name="FlightName" Mode="In" Type="String" />
             <Parameter Name="Source" Mode="In" Type="String" />
             <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="DateTime" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="DateTime" />
+            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
+            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
             <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
