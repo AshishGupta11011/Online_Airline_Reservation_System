@@ -203,7 +203,6 @@
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CancellationsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\FlightsController.cs" />
     <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
