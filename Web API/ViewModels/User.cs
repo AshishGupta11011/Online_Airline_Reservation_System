@@ -1,7 +1,7 @@
 ﻿
 //-----------------------------------------------------------------------------------------
 // Developer: ASHISH GUPTA
-// File Name : CustomersController.cs
+// File Name : User.cs
 // Create Date: <16th May,2020>
 // Last Updated Date: <20th May,2020>
 // Description:Class To Represent Users's Credential Object
