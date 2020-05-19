@@ -304,8 +304,13 @@ BEGIN
 	where FlightId=@FlightId;
 END
 
-----------------------------------------
------Mamta Chauhan
+-----------------------------------------------------------------------------------------
+ --Developer: <MAMTA CHAUHAN>
+ --Create Date: <15th May,2020>
+ --Last Updated Date: <20th May,2020>
+ --Description:To perform Business logic and accordingly return response to Passenger .
+ --Task:CRUD with opreation with Customers
+ ------------------------------------------------------------------------------------------
 create table Passengers
 (
  PassengerId BIGINT Identity(100, 1) PRIMARY KEY,
@@ -317,6 +322,44 @@ create table Passengers
  Nationality NVARCHAR(3) NOT NULL,
  	CONSTRAINT FK_Bkg_Canc1 FOREIGN KEY(BookingId) REFERENCES Bookings(BookingId),
 	--foreign key with refrence to bookings table
-
 )
-go
+GO
+
+---Stored Procedure for Passenger
+
+---Stored Procedure to Delete all Passenger by PassengerId
+Create procedure usp_DeletePassenger
+(
+@PassengerId int
+)
+as
+BEGIN
+	Delete from Passengers
+	where PassengerId=@PassengerId;
+END
+
+
+GO
+
+---Stored Procedure to Add Passenger
+ create procedure usp_AddPassenger
+  (
+@PassengerId int,
+ @BookingId int,
+ @EmailId nvarchar(100),
+ @Gender nchar(1),
+ @Name nvarchar(100),
+ @Age int,
+ @Nationality nvarchar(3)
+ 
+ )
+AS  
+BEGIN  
+     
+    Insert into Passengers (PassengerId,BookingId,EmailId,Gender,[Name],Age,Nationality)   
+           Values (@PassengerId,@BookingId, @EmailId,@Gender,@Name,@Age,@Nationality)  
+END  
+
+Go
+
+
