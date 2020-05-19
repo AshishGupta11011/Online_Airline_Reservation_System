@@ -52,8 +52,8 @@
           <Property Name="FlightName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Source" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="Destination" Type="nvarchar" MaxLength="3" Nullable="false" />
-          <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
-          <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="DepartureTime" Type="datetime" Nullable="false" />
+          <Property Name="ArrivalTime" Type="datetime" Nullable="false" />
           <Property Name="BaggageLimit" Type="int" Nullable="false" />
           <Property Name="AvailableSeats" Type="int" Nullable="false" />
         </EntityType>
@@ -129,36 +129,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="usp_AddFlight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="FlightId" Type="int" Mode="In" />
-          <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Source" Type="nvarchar" Mode="In" />
-          <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="time" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
-          <Parameter Name="BaggageLimit" Type="int" Mode="In" />
-          <Parameter Name="Food" Type="nchar" Mode="In" />
-          <Parameter Name="AvailableSeats" Type="int" Mode="In" />
-        </Function>
         <Function Name="usp_DeleteCancelledTicketById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BookingId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_DeleteFlight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="FlightId" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_GetAllCancelledTickets" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetCancelledTicketById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BookingId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="usp_UpdateFlight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="FlightId" Type="int" Mode="In" />
-          <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
-          <Parameter Name="Source" Type="nvarchar" Mode="In" />
-          <Parameter Name="Destination" Type="nvarchar" Mode="In" />
-          <Parameter Name="DepartureTime" Type="time" Mode="In" />
-          <Parameter Name="ArrivalTime" Type="time" Mode="In" />
-          <Parameter Name="BaggageLimit" Type="int" Mode="In" />
-          <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="AirlineDBModelStoreContainer">
           <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
@@ -246,8 +222,8 @@
           <Property Name="FlightName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Source" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Destination" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="DepartureTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ArrivalTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="BaggageLimit" Type="Int32" Nullable="false" />
           <Property Name="AvailableSeats" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bookings" Relationship="Self.FK_Flight_Id" FromRole="Flights" ToRole="Bookings" />
@@ -352,36 +328,12 @@
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Cancellations" EntitySet="Cancellations" />
           </AssociationSet>
-          <FunctionImport Name="usp_AddFlight">
-            <Parameter Name="FlightId" Mode="In" Type="Int32" />
-            <Parameter Name="FlightName" Mode="In" Type="String" />
-            <Parameter Name="Source" Mode="In" Type="String" />
-            <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
-            <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
-            <Parameter Name="Food" Mode="In" Type="String" />
-            <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_DeleteCancelledTicketById">
             <Parameter Name="BookingId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_DeleteFlight">
-            <Parameter Name="FlightId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAllCancelledTickets" ReturnType="Collection(AirlineDBModel.usp_GetAllCancelledTickets_Result)" />
           <FunctionImport Name="usp_GetCancelledTicketById" ReturnType="Collection(AirlineDBModel.usp_GetCancelledTicketById_Result)">
             <Parameter Name="BookingId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="usp_UpdateFlight">
-            <Parameter Name="FlightId" Mode="In" Type="Int32" />
-            <Parameter Name="FlightName" Mode="In" Type="String" />
-            <Parameter Name="Source" Mode="In" Type="String" />
-            <Parameter Name="Destination" Mode="In" Type="String" />
-            <Parameter Name="DepartureTime" Mode="In" Type="Time" />
-            <Parameter Name="ArrivalTime" Mode="In" Type="Time" />
-            <Parameter Name="BaggageLimit" Mode="In" Type="Int32" />
-            <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_GetAllCancelledTickets_Result">
@@ -473,9 +425,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_AddFlight" FunctionName="AirlineDBModel.Store.usp_AddFlight" />
           <FunctionImportMapping FunctionImportName="usp_DeleteCancelledTicketById" FunctionName="AirlineDBModel.Store.usp_DeleteCancelledTicketById" />
-          <FunctionImportMapping FunctionImportName="usp_DeleteFlight" FunctionName="AirlineDBModel.Store.usp_DeleteFlight" />
           <FunctionImportMapping FunctionImportName="usp_GetAllCancelledTickets" FunctionName="AirlineDBModel.Store.usp_GetAllCancelledTickets">
             <ResultMapping>
               <ComplexTypeMapping TypeName="AirlineDBModel.usp_GetAllCancelledTickets_Result">
@@ -498,7 +448,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_UpdateFlight" FunctionName="AirlineDBModel.Store.usp_UpdateFlight" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
