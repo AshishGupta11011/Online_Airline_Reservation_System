@@ -155,14 +155,15 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirlineContracts\IFlightService.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AirlineContracts\CancellationInterface.cs" />
+    <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Services\CancellationsService.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CancellationsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\FlightsController.cs" />
     <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
