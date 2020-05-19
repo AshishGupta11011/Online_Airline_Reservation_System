@@ -1,11 +1,11 @@
 ﻿
 //-----------------------------------------------------------------------------------------
-// Developer: ASHISH GUPTA
-// File Name : CustomersController.cs
-// Create Date: <16th May,2020>
-// Last Updated Date: <20th May,2020>
-// Description:To Handles Client requests and  perform Business logic and  accordingly return response to Client.
-// Task:CRUD with opreation with Customers table in database
+// Developer    :  ASHISH GUPTA
+// File Name    :  CustomersController.cs
+// Create Date  :  <16th May,2020>
+// Last Updated :  <20th May,2020>
+// Description  :  To Handles Client requests and  perform Business logic and  accordingly return response to Client.
+// Task         :  CRUD with opreation with Customers table in database
 // ------------------------------------------------------------------------------------------
 
 

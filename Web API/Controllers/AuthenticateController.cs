@@ -1,12 +1,12 @@
 ﻿
 
 //-----------------------------------------------------------------------------------------
-// Developer: ASHISH GUPTA
-// File Name : AuthenticateController.cs
-// Create Date: <17th May,2020>
-// Last Updated Date: <20th May,2020>
-// Description:To Handle Authentication Based requests and  perform Business logic and  accordingly return response to Client.
-// Task:To Verify The user Credentials And Assign Json Web Tokens 
+// Developer     : ASHISH GUPTA
+// File Name     : AuthenticateController.cs
+// Create Date   : <17th May,2020>
+// Last Updated  : <20th May,2020>
+// Description   : To Handle Authentication Based requests and  perform Business logic and  accordingly return response to Client.
+// Task          : To Verify The user Credentials And Assign Json Web Tokens 
 // ------------------------------------------------------------------------------------------
 
 
