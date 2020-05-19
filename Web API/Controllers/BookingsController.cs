@@ -28,69 +28,18 @@ namespace BookingWebApi.Controllers
         /// Shows All Bookings from database
         /// </summary>
         /// <returns>Data from Booking Table</returns>
-
-        // GET: api/Bookings
+        ///GET: api/Bookings
         public IQueryable<Booking> GetBookings()
         {
             return db.Bookings;
         }
-
-        // GET: api/Bookings/5
-        [ResponseType(typeof(Booking))]
-        public IHttpActionResult GetBooking(int id)
-        {
-            Booking booking = db.Bookings.Find(id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(booking);
-        }
-
-        // PUT: api/Bookings/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutBooking(int id, Booking booking)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != booking.BookingId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(booking).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
 
         /// <summary>
         /// Takes booking data from user and matches with availible Flights.
         /// </summary>
         /// <param name="booking"> booking details as bookingobject</param>
         /// <returns>Saves data to database</returns>
-
-        // POST: api/Bookings
+        ///POST: api/Bookings
         [ResponseType(typeof(Booking))]
         public IHttpActionResult PostBooking(Booking booking)
         {
@@ -130,7 +79,12 @@ namespace BookingWebApi.Controllers
             return CreatedAtRoute("DefaultApi", new { id = booking.BookingId }, booking);
         }
 
-        // DELETE: api/Bookings/5
+        /// <summary>
+        /// Deletes booking on the basis of booking Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Ok satus if that booking Deatils are deleted</returns>
+        ///DELETE: api/Bookings/5
         [ResponseType(typeof(Booking))]
         public IHttpActionResult DeleteBooking(int id)
         {
@@ -146,18 +100,6 @@ namespace BookingWebApi.Controllers
             return Ok(booking);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool BookingExists(int id)
-        {
-            return db.Bookings.Count(e => e.BookingId == id) > 0;
-        }
+       
     }
 }
