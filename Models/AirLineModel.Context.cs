@@ -12,14 +12,14 @@ namespace Airline_Reservation.web.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class AirlineDBEntities : DbContext
     {
         public AirlineDBEntities()
             : base("name=AirlineDBEntities")
         {
-            this.Configuration.ProxyCreationEnabled = false;
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,5 +32,28 @@ namespace Airline_Reservation.web.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Passenger> Passengers { get; set; }
+    
+        public virtual int usp_DeleteCancelledTicketById(Nullable<int> bookingId)
+        {
+            var bookingIdParameter = bookingId.HasValue ?
+                new ObjectParameter("BookingId", bookingId) :
+                new ObjectParameter("BookingId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteCancelledTicketById", bookingIdParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetAllCancelledTickets_Result> usp_GetAllCancelledTickets()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetAllCancelledTickets_Result>("usp_GetAllCancelledTickets");
+        }
+    
+        public virtual ObjectResult<usp_GetCancelledTicketById_Result> usp_GetCancelledTicketById(Nullable<int> bookingId)
+        {
+            var bookingIdParameter = bookingId.HasValue ?
+                new ObjectParameter("BookingId", bookingId) :
+                new ObjectParameter("BookingId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCancelledTicketById_Result>("usp_GetCancelledTicketById", bookingIdParameter);
+        }
     }
 }
