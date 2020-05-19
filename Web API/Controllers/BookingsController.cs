@@ -6,6 +6,7 @@
 //Task:CRUD with opreation with flight
 //***************************************************************************************
 
+using Airline_Reservation.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using BookingWebApi.Models;
+
 
 namespace BookingWebApi.Controllers
 {

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AirLineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AirlineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bookings">
           <Key>
             <PropertyRef Name="BookingId" />
@@ -129,6 +129,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_CreateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pwd" Type="nvarchar" Mode="In" />
+          <Parameter Name="DOB" Type="date" Mode="In" />
+          <Parameter Name="WalletBalance" Type="money" Mode="In" />
+          <Parameter Name="ResidingAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNo" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteAllCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_DeleteCustomerById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCustomerById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetCustomers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_AddFlight" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FlightId" Type="int" Mode="In" />
           <Parameter Name="FlightName" Type="nvarchar" Mode="In" />
@@ -159,7 +176,7 @@
           <Parameter Name="BaggageLimit" Type="int" Mode="In" />
           <Parameter Name="AvailableSeats" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="AirLineDBModelStoreContainer">
+        <EntityContainer Name="AirlineDBModelStoreContainer">
           <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cancellations" EntityType="Self.Cancellations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
@@ -190,7 +207,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="AirLineDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="AirlineDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Booking">
           <Key>
             <PropertyRef Name="BookingId" />
@@ -325,7 +342,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AirLineDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AirlineDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookings" EntityType="Self.Booking" />
           <EntitySet Name="Cancellations" EntityType="Self.Cancellation" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
@@ -351,6 +368,23 @@
             <End Role="Flights" EntitySet="Flights" />
             <End Role="Cancellations" EntitySet="Cancellations" />
           </AssociationSet>
+          <FunctionImport Name="sp_CreateCustomer">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Pwd" Mode="In" Type="String" />
+            <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="WalletBalance" Mode="In" Type="Decimal" />
+            <Parameter Name="ResidingAddress" Mode="In" Type="String" />
+            <Parameter Name="PhoneNo" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteAllCustomers" />
+          <FunctionImport Name="sp_DeleteCustomerById">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCustomerById" ReturnType="Collection(AirlineDBModel.sp_GetCustomerById_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCustomers" ReturnType="Collection(AirlineDBModel.sp_GetCustomers_Result)" />
           <FunctionImport Name="usp_AddFlight">
             <Parameter Name="FlightId" Mode="In" Type="Int32" />
             <Parameter Name="FlightName" Mode="In" Type="String" />
@@ -367,8 +401,8 @@
           <FunctionImport Name="usp_DeleteFlight">
             <Parameter Name="FlightId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_GetAllCancelledTickets" ReturnType="Collection(AirLineDBModel.usp_GetAllCancelledTickets_Result)" />
-          <FunctionImport Name="usp_GetCancelledTicketById" ReturnType="Collection(AirLineDBModel.usp_GetCancelledTicketById_Result)">
+          <FunctionImport Name="usp_GetAllCancelledTickets" ReturnType="Collection(AirlineDBModel.usp_GetAllCancelledTickets_Result)" />
+          <FunctionImport Name="usp_GetCancelledTicketById" ReturnType="Collection(AirlineDBModel.usp_GetCancelledTicketById_Result)">
             <Parameter Name="BookingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateFlight">
@@ -382,6 +416,26 @@
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="sp_GetCustomerById_Result">
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Pwd" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" />
+          <Property Type="Int64" Name="WalletBalance" Nullable="true" />
+          <Property Type="String" Name="ResidingAddress" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="PhoneNo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetCustomers_Result">
+          <Property Type="Int32" Name="CustomerId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Pwd" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="DOB" Nullable="true" />
+          <Property Type="Int64" Name="WalletBalance" Nullable="true" />
+          <Property Type="String" Name="ResidingAddress" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="PhoneNo" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="usp_GetAllCancelledTickets_Result">
           <Property Type="Int64" Name="CancellationId" Nullable="false" />
           <Property Type="Int32" Name="FlightId" Nullable="false" />
@@ -401,9 +455,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AirLineDBModelStoreContainer" CdmEntityContainer="AirLineDBEntities">
+        <EntityContainerMapping StorageEntityContainer="AirlineDBModelStoreContainer" CdmEntityContainer="AirlineDBEntities">
           <EntitySetMapping Name="Bookings">
-            <EntityTypeMapping TypeName="AirLineDBModel.Booking">
+            <EntityTypeMapping TypeName="AirlineDBModel.Booking">
               <MappingFragment StoreEntitySet="Bookings">
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
@@ -420,7 +474,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cancellations">
-            <EntityTypeMapping TypeName="AirLineDBModel.Cancellation">
+            <EntityTypeMapping TypeName="AirlineDBModel.Cancellation">
               <MappingFragment StoreEntitySet="Cancellations">
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
@@ -431,7 +485,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="AirLineDBModel.Customer">
+            <EntityTypeMapping TypeName="AirlineDBModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -445,7 +499,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Flights">
-            <EntityTypeMapping TypeName="AirLineDBModel.Flight">
+            <EntityTypeMapping TypeName="AirlineDBModel.Flight">
               <MappingFragment StoreEntitySet="Flights">
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="FlightName" ColumnName="FlightName" />
@@ -459,7 +513,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Passengers">
-            <EntityTypeMapping TypeName="AirLineDBModel.Passenger">
+            <EntityTypeMapping TypeName="AirlineDBModel.Passenger">
               <MappingFragment StoreEntitySet="Passengers">
                 <ScalarProperty Name="PassengerId" ColumnName="PassengerId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
@@ -471,12 +525,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_AddFlight" FunctionName="AirLineDBModel.Store.usp_AddFlight" />
-          <FunctionImportMapping FunctionImportName="usp_DeleteCancelledTicketById" FunctionName="AirLineDBModel.Store.usp_DeleteCancelledTicketById" />
-          <FunctionImportMapping FunctionImportName="usp_DeleteFlight" FunctionName="AirLineDBModel.Store.usp_DeleteFlight" />
-          <FunctionImportMapping FunctionImportName="usp_GetAllCancelledTickets" FunctionName="AirLineDBModel.Store.usp_GetAllCancelledTickets">
+          <FunctionImportMapping FunctionImportName="sp_CreateCustomer" FunctionName="AirlineDBModel.Store.sp_CreateCustomer" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteAllCustomers" FunctionName="AirlineDBModel.Store.sp_DeleteAllCustomers" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteCustomerById" FunctionName="AirlineDBModel.Store.sp_DeleteCustomerById" />
+          <FunctionImportMapping FunctionImportName="sp_GetCustomerById" FunctionName="AirlineDBModel.Store.sp_GetCustomerById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AirLineDBModel.usp_GetAllCancelledTickets_Result">
+              <ComplexTypeMapping TypeName="AirlineDBModel.sp_GetCustomerById_Result">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="WalletBalance" ColumnName="WalletBalance" />
+                <ScalarProperty Name="ResidingAddress" ColumnName="ResidingAddress" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetCustomers" FunctionName="AirlineDBModel.Store.sp_GetCustomers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AirlineDBModel.sp_GetCustomers_Result">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="WalletBalance" ColumnName="WalletBalance" />
+                <ScalarProperty Name="ResidingAddress" ColumnName="ResidingAddress" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddFlight" FunctionName="AirlineDBModel.Store.usp_AddFlight" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteCancelledTicketById" FunctionName="AirlineDBModel.Store.usp_DeleteCancelledTicketById" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteFlight" FunctionName="AirlineDBModel.Store.usp_DeleteFlight" />
+          <FunctionImportMapping FunctionImportName="usp_GetAllCancelledTickets" FunctionName="AirlineDBModel.Store.usp_GetAllCancelledTickets">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AirlineDBModel.usp_GetAllCancelledTickets_Result">
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
@@ -485,9 +570,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetCancelledTicketById" FunctionName="AirLineDBModel.Store.usp_GetCancelledTicketById">
+          <FunctionImportMapping FunctionImportName="usp_GetCancelledTicketById" FunctionName="AirlineDBModel.Store.usp_GetCancelledTicketById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="AirLineDBModel.usp_GetCancelledTicketById_Result">
+              <ComplexTypeMapping TypeName="AirlineDBModel.usp_GetCancelledTicketById_Result">
                 <ScalarProperty Name="CancellationId" ColumnName="CancellationId" />
                 <ScalarProperty Name="FlightId" ColumnName="FlightId" />
                 <ScalarProperty Name="BookingId" ColumnName="BookingId" />
@@ -496,7 +581,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="usp_UpdateFlight" FunctionName="AirLineDBModel.Store.usp_UpdateFlight" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateFlight" FunctionName="AirlineDBModel.Store.usp_UpdateFlight" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

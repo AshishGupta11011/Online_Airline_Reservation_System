@@ -10,6 +10,7 @@
 
 
 
+using Airline_Reservation.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -21,7 +22,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Airline_Reservation.web.Models;
+
 
 namespace Airline_Reservation.web.Controllers
 {
@@ -29,7 +30,7 @@ namespace Airline_Reservation.web.Controllers
     {
        
         
-        private AirLineDBEntities db = new AirLineDBEntities();
+        private AirlineDBEntities db = new AirlineDBEntities();
 
         // GET: api/Customers
         /// <summary>

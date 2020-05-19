@@ -15,10 +15,10 @@ namespace Airline_Reservation.web.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class AirLineDBEntities : DbContext
+    public partial class AirlineDBEntities : DbContext
     {
-        public AirLineDBEntities()
-            : base("name=AirLineDBEntities")
+        public AirlineDBEntities()
+            : base("name=AirlineDBEntities")
         {
         }
     
@@ -32,6 +32,67 @@ namespace Airline_Reservation.web.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Passenger> Passengers { get; set; }
+    
+        public virtual int sp_CreateCustomer(string name, string email, string pwd, Nullable<System.DateTime> dOB, Nullable<decimal> walletBalance, string residingAddress, Nullable<long> phoneNo)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var pwdParameter = pwd != null ?
+                new ObjectParameter("Pwd", pwd) :
+                new ObjectParameter("Pwd", typeof(string));
+    
+            var dOBParameter = dOB.HasValue ?
+                new ObjectParameter("DOB", dOB) :
+                new ObjectParameter("DOB", typeof(System.DateTime));
+    
+            var walletBalanceParameter = walletBalance.HasValue ?
+                new ObjectParameter("WalletBalance", walletBalance) :
+                new ObjectParameter("WalletBalance", typeof(decimal));
+    
+            var residingAddressParameter = residingAddress != null ?
+                new ObjectParameter("ResidingAddress", residingAddress) :
+                new ObjectParameter("ResidingAddress", typeof(string));
+    
+            var phoneNoParameter = phoneNo.HasValue ?
+                new ObjectParameter("PhoneNo", phoneNo) :
+                new ObjectParameter("PhoneNo", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateCustomer", nameParameter, emailParameter, pwdParameter, dOBParameter, walletBalanceParameter, residingAddressParameter, phoneNoParameter);
+        }
+    
+        public virtual int sp_DeleteAllCustomers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteAllCustomers");
+        }
+    
+        public virtual int sp_DeleteCustomerById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteCustomerById", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetCustomerById_Result> sp_GetCustomerById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCustomerById_Result>("sp_GetCustomerById", idParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetCustomers_Result> sp_GetCustomers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCustomers_Result>("sp_GetCustomers");
+        }
     
         public virtual int usp_AddFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.DateTime> departureTime, Nullable<System.DateTime> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
         {

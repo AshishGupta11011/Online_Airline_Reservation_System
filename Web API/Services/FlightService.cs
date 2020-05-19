@@ -1,9 +1,7 @@
 ﻿//=============================================
 //  Developer:	<Anshika Jindal>
 //  Create date: <17th May,2020>
-//  last updated date:<20th may,2020>
 //  Description : To perform business logic and accordingly return response to FlightController
-//  Task : CRUD operation with Flight
 //=============================================
 
 using Airline_Reservation.web.Interface;
@@ -31,7 +29,7 @@ namespace Airline_Reservation.web.Services
             //instantiating AirlineDBEntities Context class
             try
             {
-                using (AirLineDBEntities db = new AirLineDBEntities())
+                using (AirlineDBEntities db = new AirlineDBEntities())
                 {
                     //use LINQ query to fetch list of Flights from table flights
                     List<Flight> flights = db.Flights.ToList();
@@ -61,12 +59,12 @@ namespace Airline_Reservation.web.Services
         {
             try
             {
-                //instantiating AirLineDBEntities Context class
-                using (AirLineDBEntities db = new AirLineDBEntities())
+                //instantiating Online_Food_Ordering_SystemEntities3 Context class
+                using (AirlineDBEntities db = new AirlineDBEntities())
                 {
 
-                    //check if the Flight already exists
-                    Flight flt = db.Flights.Where(f => f.FlightName.Equals(flight.FlightName)).FirstOrDefault();
+                    //check if the foodItem already exists
+                    Flight flt = db.Flights.Where(f => f.FlightName.Equals(flight.FlightName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
                     if (flt != null)
                     {
@@ -106,7 +104,7 @@ namespace Airline_Reservation.web.Services
             try
             {
                 //instantiating AirLineDBEntities Context class
-                using (AirLineDBEntities db = new AirLineDBEntities())
+                using (AirlineDBEntities db = new AirlineDBEntities())
                 {
                     //LINQ query to find flight corresponding to passed flightid
                     Flight flt = db.Flights.Where(f => f.FlightId == flightid).FirstOrDefault();
@@ -135,7 +133,7 @@ namespace Airline_Reservation.web.Services
             try
             {
                 //instantiating AirLineDBEntities Context class
-                using (AirLineDBEntities db = new AirLineDBEntities())
+                using (AirlineDBEntities db = new AirlineDBEntities())
                 {
                     //use LINQ query to find the Flight with id flightid
                     Flight flt = db.Flights.Where(f => f.FlightId == flightid).FirstOrDefault();
@@ -178,7 +176,7 @@ namespace Airline_Reservation.web.Services
             try
             {
                 //instantiating AirLineDBEntities Context class
-                using (AirLineDBEntities db = new AirLineDBEntities())
+                using (AirlineDBEntities db = new AirlineDBEntities())
                 {
                     //use LINQ query to find the Flight with  flightid
                     Flight flt = db.Flights.Where(f => f.FlightId == f.FlightId).FirstOrDefault();
