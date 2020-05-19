@@ -8,7 +8,7 @@
 
 CREATE DATABASE AirlineDB;
 USE AirlineDB;
-
+ --Table for Customer
 CREATE TABLE Customers
 (
 CustomerId int Identity(100, 1) PRIMARY KEY,
@@ -23,6 +23,7 @@ PhoneNo bigint not null
 
 GO
 
+--Stored Procedurs to Add Customer
 ALTER PROC sp_CreateCustomer
 (@Name nvarchar(100) ,
 @Email nvarchar(100) ,
@@ -33,10 +34,11 @@ ALTER PROC sp_CreateCustomer
 AS 
 BEGIN
 if @Name is not null AND @Email is not null AND @Pwd is not null
-INSERT INTO Customer (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress)
+INSERT INTO Customers (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress)
 VALUES(@Name,@Email,@Pwd,@DOB,@WalletBalance,@ResidingAddress)
+Else 
+ Raiserror('Inavlid values pasased',16,1)
 END
-
 
 GO
 
@@ -44,6 +46,8 @@ EXEC sp_CreateCustomer 'Ashish',null,'ashish','01-01-01',1090,'hgsfakjkshaksj'
 
 GO
 
+
+--Stored Procedurs to Update Customer
 CREATE PROC sp_UpdateCustomer
 (@Name nvarchar(100) ,
 @Email nvarchar(100) ,
@@ -55,11 +59,12 @@ CREATE PROC sp_UpdateCustomer
 AS 
 BEGIN
 if @Name is not null AND @Email is not null AND @Pwd is not null
-UPDATE Customer 
+UPDATE Customers 
 SET Name = @Name ,Email = @Email,Pwd = @Pwd,DOB = @DOB,WalletBalance= @WalletBalance ,ResidingAddress = @ResidingAddress
 WHERE CustomerId = @ConditionID
+Else 
+ Raiserror('Inavlid values pasased',16,1)
 END
-
 GO
 
 
