@@ -1,14 +1,24 @@
 
-   --Add Your SQL  Here
+ ----SQL SCRIPT FILE
+ ----Created ON : 
 
 
 
- --Add Your SQL Here
- -- ASHISH GUPTA
 
+-----------------------------------------------------------------------------------------
+ --Developer: <ASHISH GUPTA>
+ --Create Date: <15th May,2020>
+ --Last Updated Date: <20th May,2020>
+ --Description:To perform Business logic and accordingly return response to Customers .
+ --Task:CRUD with opreation with Customers
+ ------------------------------------------------------------------------------------------
+
+ --Create database
 CREATE DATABASE AirlineDB;
 USE AirlineDB;
- --Table for Customer
+
+
+ --Create Table for Customer
 CREATE TABLE Customers
 (
 CustomerId int Identity(100, 1) PRIMARY KEY,
@@ -23,31 +33,86 @@ PhoneNo bigint not null
 
 GO
 
---Stored Procedurs to Add Customer
-ALTER PROC sp_CreateCustomer
+----Stored Procedures
+
+--Stored Procedurs to Get Customers 
+DROP PROCEDURE IF EXISTS sp_GetCustomers;
+GO
+Create PROC sp_GetCustomers
+AS
+BEGIN
+SELECT * FROM Customers
+END
+
+GO
+
+--Stored Procedurs to Get Customer By Id
+DROP PROCEDURE IF EXISTS sp_GetCustomerById;
+GO
+Create PROC sp_GetCustomerById @Id int
+AS
+BEGIN
+SELECT * FROM Customers
+WHERE  CustomerId = @Id
+END
+
+GO
+
+-- Delete Customer By Id
+-- procedure deletes the row for the given id
+DROP PROCEDURE IF EXISTS sp_DeleteCustomerById;
+GO
+CREATE PROCEDURE sp_DeleteCustomerById (@id INT)
+AS BEGIN
+  DELETE
+  FROM Customers
+  WHERE CustomerId = @id;
+END
+
+GO
+
+--Delete  All Customers
+-- procedure deletes All Customers
+DROP PROCEDURE IF EXISTS sp_DeleteAllCustomers;
+GO
+CREATE PROCEDURE sp_DeleteAllCustomers
+AS BEGIN
+  DELETE  FROM Customers
+END
+
+GO
+
+--Stored Procedure to Add Customer
+DROP PROCEDURE IF EXISTS sp_CreateCustomer;
+GO
+CREATE PROC sp_CreateCustomer
 (@Name nvarchar(100) ,
 @Email nvarchar(100) ,
 @Pwd nvarchar(100),
 @DOB date ,
 @WalletBalance money,
-@ResidingAddress nvarchar(255) )
+@ResidingAddress nvarchar(255),
+@PhoneNo bigint)
 AS 
 BEGIN
 if @Name is not null AND @Email is not null AND @Pwd is not null
-INSERT INTO Customers (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress)
-VALUES(@Name,@Email,@Pwd,@DOB,@WalletBalance,@ResidingAddress)
+INSERT INTO Customers (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress,PhoneNo)
+VALUES(@Name,@Email,@Pwd,@DOB,@WalletBalance,@ResidingAddress,@PhoneNo)
 Else 
  Raiserror('Inavlid values pasased',16,1)
-END
-
-GO
-
-EXEC sp_CreateCustomer 'Ashish',null,'ashish','01-01-01',1090,'hgsfakjkshaksj'
+END;
 
 GO
 
 
---Stored Procedurs to Update Customer
+EXEC sp_CreateCustomer 'Ashish','ashishguptaid@gmail.com','ashish','01-01-01',1090,'hgsfakjkshaksj',9468760288
+
+GO
+
+
+--Stored Procedure to Update Customer By ID
+DROP PROCEDURE IF EXISTS sp_UpdateCustomer;
+GO
 CREATE PROC sp_UpdateCustomer
 (@Name nvarchar(100) ,
 @Email nvarchar(100) ,
@@ -55,13 +120,14 @@ CREATE PROC sp_UpdateCustomer
 @DOB date ,
 @WalletBalance money,
 @ResidingAddress nvarchar(255),
-@ConditionID int )
+@PhoneNo bigint,
+@isIdExists int )
 AS 
 BEGIN
 if @Name is not null AND @Email is not null AND @Pwd is not null
 UPDATE Customers 
-SET Name = @Name ,Email = @Email,Pwd = @Pwd,DOB = @DOB,WalletBalance= @WalletBalance ,ResidingAddress = @ResidingAddress
-WHERE CustomerId = @ConditionID
+SET [Name] = @Name ,Email = @Email,Pwd = @Pwd,DOB = @DOB,WalletBalance= @WalletBalance ,ResidingAddress = @ResidingAddress,PhoneNo = @PhoneNo
+WHERE CustomerId = @isIdExists
 Else 
  Raiserror('Inavlid values pasased',16,1)
 END
@@ -77,7 +143,7 @@ DROP TABLE Customer
 
 -----------------------------------------------------------------------------------------
  --Developer: <Ashita Gaur>
- --Create Date: <17th May,2020>
+ --Create Date: <15th May,2020>
  --Last Updated Date: <20th May,2020>
  --Description:To perform Business logic and accordingly return response to Bookings .
  --Task:CRUD with opreation with flight
