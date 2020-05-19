@@ -155,6 +155,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AirlineContracts\CancellationInterface.cs" />
+    <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Models\AirLineModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
