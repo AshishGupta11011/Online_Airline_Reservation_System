@@ -1,4 +1,16 @@
-﻿using Airline_Reservation.web.Models;
+﻿
+
+//-----------------------------------------------------------------------------------------
+// Developer: ASHISH GUPTA
+// File Name : AuthenticateController.cs
+// Create Date: <17th May,2020>
+// Last Updated Date: <20th May,2020>
+// Description:To Handle Authentication Based requests and  perform Business logic and  accordingly return response to Client.
+// Task:To Verify The user Credentials And Assign Json Web Tokens 
+// ------------------------------------------------------------------------------------------
+
+
+using Airline_Reservation.web.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,6 +24,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Airline_Reservation.web.Controllers
+
 {
     public class AuthenticateController : ApiController
     {
@@ -21,6 +34,11 @@ namespace Airline_Reservation.web.Controllers
 
 
         // POST: api/Authenticate
+        /// <summary>
+        /// Method  to return JWT Token to registered User
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         //[ResponseType(typeof(User))]
         public object PostAuthenticate(User user)
         {
