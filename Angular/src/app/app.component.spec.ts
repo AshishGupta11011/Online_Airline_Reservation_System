@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'AngularSprint'`, () => {
+  it(`should have as title 'AngularDemo2'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('AngularSprint');
+    expect(app.title).toEqual('AngularDemo2');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('AngularSprint app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('AngularDemo2 app is running!');
   });
 });
