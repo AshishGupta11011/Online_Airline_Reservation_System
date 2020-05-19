@@ -14,6 +14,7 @@ namespace Airline_Reservation.web.Models
     public partial class usp_GetAllCancelledTickets_Result
     {
         public long CancellationId { get; set; }
+        public int FlightId { get; set; }
         public int BookingId { get; set; }
         public System.DateTime DateOfCancellation { get; set; }
         public decimal RefundAmount { get; set; }

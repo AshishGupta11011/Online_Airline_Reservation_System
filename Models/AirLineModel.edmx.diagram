@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="14854ab804094f1894b6ad10d81ad769" Name="Diagram1" ZoomLevel="91">
-        <EntityTypeShape EntityType="AirlineDBModel.Booking" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="AirlineDBModel.Cancellation" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AirlineDBModel.Customer" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AirlineDBModel.Flight" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AirlineDBModel.Passenger" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <AssociationConnector Association="AirlineDBModel.FK_Bkg_Canc" ManuallyRouted="false" />
-        <AssociationConnector Association="AirlineDBModel.FK_Bkg_Canc1" ManuallyRouted="false" />
-        <AssociationConnector Association="AirlineDBModel.FK_BookId_Psn" ManuallyRouted="false" />
-        <AssociationConnector Association="AirlineDBModel.FK_Customer_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="AirlineDBModel.FK_Flight_Id" ManuallyRouted="false" />
+      <Diagram DiagramId="1e6a52a993f04bcb8e69eebc68a03145" Name="Diagram1">
+        <EntityTypeShape EntityType="AirLineDBModel.Booking" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="AirLineDBModel.Cancellation" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AirLineDBModel.Customer" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AirLineDBModel.Flight" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AirLineDBModel.Passenger" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="AirLineDBModel.FK_Bkg_Canc" ManuallyRouted="false" />
+        <AssociationConnector Association="AirLineDBModel.FK_Bkg_Canc1" ManuallyRouted="false" />
+        <AssociationConnector Association="AirLineDBModel.FK_Customer_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="AirLineDBModel.FK_Flight_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="AirLineDBModel.FK_Flt_Can" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

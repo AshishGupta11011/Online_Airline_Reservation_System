@@ -18,18 +18,21 @@ namespace Airline_Reservation.web.Models
         public Flight()
         {
             this.Bookings = new HashSet<Booking>();
+            this.Cancellations = new HashSet<Cancellation>();
         }
     
         public int FlightId { get; set; }
         public string FlightName { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
-        public System.TimeSpan DepartureTime { get; set; }
-        public System.TimeSpan ArrivalTime { get; set; }
+        public System.DateTime DepartureTime { get; set; }
+        public System.DateTime ArrivalTime { get; set; }
         public int BaggageLimit { get; set; }
         public int AvailableSeats { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Bookings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cancellation> Cancellations { get; set; }
     }
 }
