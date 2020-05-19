@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Airline_Reservation.web.Models;
@@ -18,14 +19,28 @@ namespace Airline_Reservation.web.Controllers
 
         // GET: api/Customers
         
-        public IQueryable<Customer> GetCustomers()
+        [Authorize]
+        [ResponseType(typeof(IQueryable<Customer>))]
+        public IHttpActionResult GetCustomers()
         {
-            db.Configuration.LazyLoadingEnabled = false;
-            return db.Customers;
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                var role = claims.Where(r => r.Type == "Email").FirstOrDefault()?.Value;
+                if (role == "ashishguptaid@gmail.com")
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    return Ok(db.Customers);
+                }
+                else{ return Unauthorized(); }
+            }
+            else { return Unauthorized(); }
+
         }
 
         // GET: api/Customers/5
-        //[Authorize]
+        [Authorize]
         [ResponseType(typeof(Customer))]
         public IHttpActionResult GetCustomer(int id)
         {
@@ -39,7 +54,9 @@ namespace Airline_Reservation.web.Controllers
             return Ok(customer);
         }
 
+
         // PUT: api/Customers/5
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCustomer(int id, Customer customer)
         {
@@ -77,6 +94,7 @@ namespace Airline_Reservation.web.Controllers
 
         // POST: api/Customers
         [ResponseType(typeof(Customer))]
+        
         public IHttpActionResult PostCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
@@ -101,6 +119,7 @@ namespace Airline_Reservation.web.Controllers
 
         // DELETE: api/Customers/5
         [ResponseType(typeof(Customer))]
+        [Authorize]
         public IHttpActionResult DeleteCustomer(int id)
         {
             Customer customer = db.Customers.Find(id);

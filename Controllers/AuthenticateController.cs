@@ -30,7 +30,9 @@ namespace Airline_Reservation.web.Controllers
             {
                 if (isUser.Pwd == user.Password)
                 {
-                     return  new { data = GetToken(user) , Id =  isUser.CustomerId };
+                    string token = GetToken(user);
+                    return  token ;
+                    // return  new { data = GetToken(user) , Id =  isUser.CustomerId };
                     
                         //CreatedAtRoute("DefaultApi",token, isUser);
 
