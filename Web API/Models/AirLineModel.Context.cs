@@ -20,6 +20,8 @@ namespace Airline_Reservation.web.Models
         public AirLineDBEntities()
             : base("name=AirLineDBEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

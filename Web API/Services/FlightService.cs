@@ -64,7 +64,7 @@ namespace Airline_Reservation.web.Services
                 {
 
                     //check if the foodItem already exists
-                    Flight flt = db.Flights.Where(f => f.FlightName.Equals(flight.FlightName, StringComparison.OrdinalIgnoreCase);
+                    Flight flt = db.Flights.Where(f => f.FlightName.Equals(flight.FlightName, StringComparison.OrdinalIgnoreCase));
 
                     if (flt != null)
                     {
@@ -213,3 +213,5 @@ namespace Airline_Reservation.web.Services
             }
 
         }
+    }
+}
