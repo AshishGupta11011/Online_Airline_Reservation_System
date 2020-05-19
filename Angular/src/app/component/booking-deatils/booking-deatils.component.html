@@ -1,0 +1,117 @@
+<div class="container">
+ 
+  <!-- flight Bookings are shown here  -->
+
+  
+  <ng-container  *ngIf="showBookingDetails">
+    <div class="col-md-12 text-blue ">
+      <h2 class="border-bottom pb-2 mb-2">Book Your Flight with us</h2>
+
+      <form [formGroup]="newForm">
+
+        <div class="form-group form-row ">
+          <label for="source" class="col-md-3 col-form-label">Flying From:</label>
+          <label for="destination" class="col-md-3 col-form-label">Flying To:</label>
+          <label for="deptDatepicker" class="col-md-2 col-form-label">Date of Journey :</label>
+          <label for="class" class="col-md-2 col-form-label">Class:</label>
+          <label for="noOfSeats" class="col-md-2 col-form-label">Travellers:</label>
+        </div>
+
+        <div class="form-group form-row ">
+          <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Flying from" name="Source" formControlName="Source"
+              [ngClass]="{
+                  'is-valid': newForm.get('Source').valid && newForm.get('Source').touched,
+                  'is-invalid': newForm.get('Source').invalid && newForm.get('Source').touched
+                }">
+
+            <span class="text-danger"
+              *ngIf="newForm.get('Source').invalid && newForm.get('Source').touched && newForm.get('Source').errors.required">
+              Please Enter your location </span>
+          </div>
+
+          <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="Destination " name="destination"
+              formControlName="Destination" [ngClass]="{
+                  'is-valid': newForm.get('Destination').valid && newForm.get('Destination').touched,
+                  'is-invalid': newForm.get('Destination').invalid && newForm.get('Destination').touched               
+                }">
+            <span class="text-danger"
+              *ngIf="newForm.get('Destination').invalid && newForm.get('Destination').touched && newForm.get('Destination').errors.required">
+              Please Enter your Destination .
+            </span>
+          </div>
+          <div class="col-md-2">
+            <input matInput [matDatepicker]="deptDatepicker" formControlName="DateOfJourney" class="form-control"
+              [ngClass]="{
+            'is-valid': newForm.get('DateOfJourney').valid && newForm.get('DateOfJourney').touched,
+            'is-invalid': newForm.get('DateOfJourney').invalid && newForm.get('DateOfJourney').touched
+          }">
+            <mat-datepicker-toggle matSuffix [for]="deptDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #deptDatepicker></mat-datepicker>
+            <span class="text-danger"
+              *ngIf="newForm.get('DateOfJourney').invalid && newForm.get('DateOfJourney').touched && newForm.get('DateOfJourney').errors.required">
+              Please Enter your DateOfJourney </span>
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Enter Class " name="class" formControlName="Class"
+              [ngClass]="{
+            'is-valid': newForm.get('Class').valid && newForm.get('Class').touched,
+            'is-invalid': newForm.get('Class').invalid && newForm.get('Class').touched
+          }">
+            <span class="text-danger"
+              *ngIf="newForm.get('Class').invalid && newForm.get('Class').touched && newForm.get('Class').errors.required">
+              Please Enter Class </span>
+          </div>
+
+          <div class="col-md-2">
+            <input type="number" min="0" class="form-control" placeholder="No of Seats " name="noOfSeats"
+              formControlName="NoOfSeats" [ngClass]="{
+              'is-valid': newForm.get('NoOfSeats').valid && newForm.get('NoOfSeats').touched,
+              'is-invalid': newForm.get('NoOfSeats').invalid && newForm.get('NoOfSeats').touched 
+            }">
+            <span class="noOfSeats"
+              *ngIf="newForm.get('NoOfSeats').invalid && newForm.get('NoOfSeats').touched && newForm.get('NoOfSeats').errors.required">
+              Please Enter b/w 1-5 </span>
+          </div>
+        </div>
+        <div class="form-group form-row">
+          <!-- <div class="text-center col-md-3">
+          <button class="btn btn-blue text-white" (click)="onSearchClick()">Search</button>
+        </div> -->
+          <div class="text-center col-md-3">
+            <button class="btn btn-blue text-white" (click)="toggleBooking()">Confirm Booking</button>
+          </div>
+        </div>
+        <div>
+          {{this.newForm.value | json}}
+        </div>
+
+        <!-- is-valid    : green
+            is-invalid : red -->
+
+
+      </form>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="showBookingDetails">
+    <div class="col-md-12 text-blue ">
+      <h2 class="border-bottom pb-2 mb-2">Booking Deatails are </h2>
+      <div>
+        Data
+      </div>
+      <div>
+        <div> Flying from : {{newForm.value.Source}} </div>
+        <div> Flying To : {{newForm.value.Destination}} </div>
+        <div> Date Of Journey : {{newForm.value.DateOfJourney}} </div>
+        <div> Class : {{newForm.value.Class}} </div>
+        <div> No of Travellers : {{newForm.value.NoOfSeats}} </div>
+                
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>
