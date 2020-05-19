@@ -20,6 +20,54 @@ WalletBalance bigint,
 ResidingAddress nvarchar(255) ,
 PhoneNo bigint not null
 )
+
+GO
+
+ALTER PROC sp_CreateCustomer
+(@Name nvarchar(100) ,
+@Email nvarchar(100) ,
+@Pwd nvarchar(100),
+@DOB date ,
+@WalletBalance money,
+@ResidingAddress nvarchar(255) )
+AS 
+BEGIN
+if @Name is not null AND @Email is not null AND @Pwd is not null
+INSERT INTO Customer (Name,Email,Pwd,DOB,WalletBalance,ResidingAddress)
+VALUES(@Name,@Email,@Pwd,@DOB,@WalletBalance,@ResidingAddress)
+END
+
+
+GO
+
+EXEC sp_CreateCustomer 'Ashish',null,'ashish','01-01-01',1090,'hgsfakjkshaksj'
+
+GO
+
+CREATE PROC sp_UpdateCustomer
+(@Name nvarchar(100) ,
+@Email nvarchar(100) ,
+@Pwd nvarchar(100),
+@DOB date ,
+@WalletBalance money,
+@ResidingAddress nvarchar(255),
+@ConditionID int )
+AS 
+BEGIN
+if @Name is not null AND @Email is not null AND @Pwd is not null
+UPDATE Customer 
+SET Name = @Name ,Email = @Email,Pwd = @Pwd,DOB = @DOB,WalletBalance= @WalletBalance ,ResidingAddress = @ResidingAddress
+WHERE CustomerId = @ConditionID
+END
+
+GO
+
+
+SElect * FROM Customer
+
+DROP TABLE Customer
+
+
  
 
 -----------------------------------------------------------------------------------------
