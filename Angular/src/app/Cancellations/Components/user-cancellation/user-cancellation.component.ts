@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CancellationService } from '../Services/cancellation.service';
+import { CancellationService } from '../../Services/cancellation.service';
+
+
 
 @Component({
   selector: 'app-user-cancellation',

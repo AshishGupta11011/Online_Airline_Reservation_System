@@ -17,17 +17,17 @@ export class PassengerService {
 
 // Method to get all Passengers by calling  /api/Passengers
   getPassenger() {
-    return this.http.get<Passenger[]>('http://localhost:62850/api/Passengers');
+    return this.http.get<Passenger[]>('http://localhost:53981/api/Passengers');
   }
 
 //Method to get a single passenger by passengerId 
   getPassengerById(pId: string) {
-    return this.http.get<Passenger>('http://localhost:62850/api/Passengers/' + pId);
+    return this.http.get<Passenger>('http://localhost:53981/api/Passengers/' + pId);
   }
 
 //Method to add the passenger
   addPassenger(passenger: Passenger) {
-    return this.http.post('http://localhost:62850/api/Passengers', passenger);
+    return this.http.post('http://localhost:53981/api/Passengers', passenger);
   }
 
 //Method to delete passenger by PassengerId

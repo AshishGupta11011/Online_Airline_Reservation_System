@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 import { Router } from '@angular/router';
 import { Passenger } from '../../Models/passenger.model';
 import { PassengerService } from '../../Services/passenger.service';
@@ -26,7 +27,7 @@ export class PassengerListComponent implements OnInit {
  //on edit the passengers
   onEditClick(id: number){
     const passengerId = this.passengerList[id]['PassengerId'];
-    this.router.navigate(['/Edit', passengerId]);
+    this.router.navigate(['/editpassenger', passengerId]);
   }
 
 //on delete the passengers

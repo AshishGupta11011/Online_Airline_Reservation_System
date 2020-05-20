@@ -1,3 +1,11 @@
+//-----------------------------------------------------------------------------------------
+// Developer    :  ASHISH GUPTA
+// File Name    :  register-component.component.cs
+// Create Date  :  <17th May,2020>
+// Last Updated :  <20th May,2020>
+// Description  :  registers the customer  
+// ------------------------------------------------------------------------------------------
+
 import { Component, OnInit } from '@angular/core';
 import { error } from 'protractor';
 import { Route } from '@angular/compiler/src/core';
@@ -13,6 +21,7 @@ import { RegisterService } from '../../Services/Register.service';
 export class RegisterCustomerComponent implements OnInit {
   public EmailAlreadyExists: boolean = false;
   Registered: boolean = false;
+
   customerModel: Customer = new Customer();
   constructor(private custservice: RegisterService , private router : Router ) { }
 
@@ -22,7 +31,7 @@ export class RegisterCustomerComponent implements OnInit {
   }
 
   CreateCust() {
-
+//send the customer details for account to be created to the  service
     this.custservice.AddCustomer(this.customerModel)
       .subscribe(
         

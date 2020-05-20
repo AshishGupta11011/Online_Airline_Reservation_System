@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserCancellation } from '../Models/cancellation.model';
-import { CancellationService } from '../Services/cancellation.service';
+import { UserCancellation } from '../../Models/cancellation.model';
+import { CancellationService } from '../../Services/cancellation.service';
+
 
 @Component({
   selector: 'app-admin-cancellation',

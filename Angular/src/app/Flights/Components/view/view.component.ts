@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-// import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-view',
@@ -12,7 +12,6 @@ export class ViewComponent implements OnInit {
   constructor(private router:Router) { }
 
   ngOnInit() {
-    console.log("hi")
   }
 
  flightData=[{
@@ -64,14 +63,5 @@ delete(FlightId){
   console.log(FlightId);
 }
 
-search(value1,value2){
-  console.log(value1)
-  console.log(value2)
-  this.flightData = this.flightData.filter(obj => {
-    
-    return obj.Source === value1 && obj.Destination == value2
-  })
-  this.router.navigate(["search"]);
-}
 
 }

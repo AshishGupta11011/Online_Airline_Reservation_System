@@ -10,6 +10,9 @@ export class BookingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    
+
   }
 
   

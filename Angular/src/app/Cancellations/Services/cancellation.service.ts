@@ -9,10 +9,10 @@ export class CancellationService {
     constructor(private http: HttpClient) {}
 
     getCancellationDetails() {
-        return this.http.get('https://localhost:5335/api/Cancel');
+        return this.http.get<any>('http://localhost:53981/api/Cancellations');
     }
 
     cancelTicket(bId: string) {
-        return this.http.get('https://localhost:5335/api/Cancel/CancellationDetails/' + bId);
+        return this.http.get<any>('http://localhost:53981/api/Cancellations/CancellationDetails/' + bId);
     }
 }

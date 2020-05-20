@@ -13,6 +13,7 @@ import { BookingDataService } from './Bookings/Services/booking-data.service';
 import { PassengerComponent } from './Passengers/Components/passenger/passenger.component';
 import { PassengerListComponent } from './Passengers/Components/passenger-list/passenger-list.component';
 import { SafePipe } from './Bookings/pipes/safe/safe.pipe';
+import { BookingDeatilsComponent } from './Bookings/Components/booking-deatils/booking-deatils.component';
 import { PassengerService } from './Passengers/Services/passenger.service';
 import { RegisterService } from './Customers/Services/Register.service';
 import { AuthenticateService } from './Customers/Services/Authenticate.service';
@@ -24,13 +25,18 @@ import { BookingComponent } from './Customers/Components/booking/booking.compone
 import { AdminComponent } from './Customers/Components/admin/admin.component';
 import { PageNotFoundComponent } from './Customers/Components/page-not-found/page-not-found.component';
 import { ProfileComponent } from './Customers/Components/profile/profile.component';
-import { BookingDeatilsComponent } from './Bookings/component/booking-deatils/booking-deatils.component';
+import { AdminCancellationComponent } from './Cancellations/Components/admin-cancellation/admin-cancellation.component';
+
+import { UserCancellationComponent } from './Cancellations/Components/user-cancellation/user-cancellation.component';
+import { CancellationService } from './Cancellations/Services/cancellation.service';
+import { Passenger } from './Passengers/Models/passenger.model';
+import { PassengerEditComponent } from './Passengers/Components/passenger-edit/passenger-edit.component';
+import { ListOfCustomersComponent } from './Customers/Components/list-of-customers/list-of-customers.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    PassengerComponent,
-    PassengerListComponent,
     SafePipe,
     BookingDeatilsComponent,
     AppComponent,
@@ -39,7 +45,13 @@ import { BookingDeatilsComponent } from './Bookings/component/booking-deatils/bo
     BookingComponent,
     AdminComponent,
     PageNotFoundComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminCancellationComponent,
+    UserCancellationComponent,
+   PassengerComponent,
+   PassengerListComponent,
+   PassengerEditComponent,
+   ListOfCustomersComponent
     
   ],
   imports: [
@@ -52,8 +64,9 @@ import { BookingDeatilsComponent } from './Bookings/component/booking-deatils/bo
     MatDatepickerModule,
     MatNativeDateModule,
     
+    
   ],
-  providers: [PassengerService, BookingDataService,RegisterService, AuthenticateService,AuthGuard,
+  providers: [PassengerService, BookingDataService,RegisterService, AuthenticateService,AuthGuard,CancellationService,PassengerService,
     {provide: HTTP_INTERCEPTORS,
     useClass : TokenInterceptorService,
   multi : true} ],

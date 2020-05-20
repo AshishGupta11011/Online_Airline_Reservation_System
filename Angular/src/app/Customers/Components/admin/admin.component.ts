@@ -22,8 +22,9 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
   
+
     this.register.GetCustomer().subscribe(
-      res => {this.isAdmin = true;console.log("user is admin");this.customerList = res},
+      res => {this.isAdmin = true;console.log("user is admin");},
       error => {console.log(error);this.router.navigate(['/booking']);window.alert("Only For Admin");}
     )
   }

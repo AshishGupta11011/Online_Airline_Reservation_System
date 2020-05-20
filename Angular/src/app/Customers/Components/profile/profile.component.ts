@@ -1,3 +1,12 @@
+//-----------------------------------------------------------------------------------------
+// Developer    :  ASHISH GUPTA
+// File Name    :  profile.component.cs
+// Create Date  :  <17th May,2020>
+// Last Updated :  <20th May,2020>
+// Description  :  Gets the customer details And user can update their details And delete their Account
+// ------------------------------------------------------------------------------------------
+
+
 import { Component, OnInit } from '@angular/core';
 
 
@@ -20,7 +29,7 @@ export class ProfileComponent implements OnInit {
 
   customerModel: Customer = new Customer();
   constructor(private custservice: RegisterService , private router : Router ) { 
-    this.id = 100;
+    this.id = 104;
   }
 
 
