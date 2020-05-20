@@ -199,7 +199,6 @@
       <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Services\AuthenticationService.cs" />
-    <Compile Include="Services\CancellationsService.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CancellationsController.cs" />
