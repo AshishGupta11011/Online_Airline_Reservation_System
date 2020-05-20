@@ -94,7 +94,7 @@ namespace Airline_Reservation.web.Controllers
 
             //show the updated/edited details of passengers
             db.Entry(passenger).State = EntityState.Modified;
-            
+
             try
             {
                 db.SaveChanges();
@@ -129,7 +129,7 @@ namespace Airline_Reservation.web.Controllers
         [ResponseType(typeof(Passenger))]
         public IHttpActionResult PostPassenger(Passenger passenger)
         {
-            
+
             //check for validation of passenger
             if (!ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace Airline_Reservation.web.Controllers
         [ResponseType(typeof(Passenger))]
         public IHttpActionResult DeletePassenger(long id)
         {
-          //finding the id from passenger database 
+            //finding the id from passenger database 
             Passenger passenger = db.Passengers.Find(id);
             //if passenger id is null(not found ) it return "NOTFound"
             if (passenger == null)
@@ -180,11 +180,14 @@ namespace Airline_Reservation.web.Controllers
             }
             //else dispose will release only unmanaged resource
             base.Dispose(disposing);
-        }
-        private bool PassengerExists(long id)
-        {
-            return db.Passengers.Count(e => e.PassengerId== id) > 0;
-        }
 
+        }
+        public bool PassengerExists(long id)
+        {
+            using (AirlineDBEntities db = new AirlineDBEntities())
+            {
+                return db.Passengers.Count(e => e.PassengerId == id) > 0;
+            }
+        }
     }
 }
