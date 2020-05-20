@@ -209,6 +209,7 @@
     </Compile>
     <Compile Include="Services\FlightException.cs" />
     <Compile Include="Services\FlightService.cs" />
+    <Compile Include="Services\IBookings.cs" />
     <Compile Include="Services\IFlightService.cs" />
     <Compile Include="ViewModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
