@@ -11,10 +11,11 @@
 
 
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { Booking } from 'src/app/model/booking';
+
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BookingDataService } from 'src/app/services/booking-data.service';
 import { Router } from '@angular/router';
+import { Booking } from '../../model/booking';
+import { BookingDataService } from '../../Services/booking-data.service';
 
 @Component({
   selector: 'app-booking-deatils',

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PassengerService } from '../passenger.service';
-import { Passenger} from '../passenger.model';
+
 import { Router } from '@angular/router';
+import { Passenger } from '../../Models/passenger.model';
+import { PassengerService } from '../../Services/passenger.service';
 
 @Component({
   selector: 'app-passenger-list',

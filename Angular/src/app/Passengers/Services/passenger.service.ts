@@ -1,7 +1,8 @@
 //importing the libraries
-import { Passenger } from './passenger.model';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Passenger } from '../Models/passenger.model';
 
 //To inject the depencies in the service
 @Injectable({

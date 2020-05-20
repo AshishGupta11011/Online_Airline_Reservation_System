@@ -13,7 +13,6 @@ import { BookingDataService } from './Bookings/Services/booking-data.service';
 import { PassengerComponent } from './Passengers/Components/passenger/passenger.component';
 import { PassengerListComponent } from './Passengers/Components/passenger-list/passenger-list.component';
 import { SafePipe } from './Bookings/pipes/safe/safe.pipe';
-import { BookingDeatilsComponent } from './Bookings/Components/booking-deatils/booking-deatils.component';
 import { PassengerService } from './Passengers/Services/passenger.service';
 import { RegisterService } from './Customers/Services/Register.service';
 import { AuthenticateService } from './Customers/Services/Authenticate.service';
@@ -25,6 +24,7 @@ import { BookingComponent } from './Customers/Components/booking/booking.compone
 import { AdminComponent } from './Customers/Components/admin/admin.component';
 import { PageNotFoundComponent } from './Customers/Components/page-not-found/page-not-found.component';
 import { ProfileComponent } from './Customers/Components/profile/profile.component';
+import { BookingDeatilsComponent } from './Bookings/component/booking-deatils/booking-deatils.component';
 
 @NgModule({
   declarations: [

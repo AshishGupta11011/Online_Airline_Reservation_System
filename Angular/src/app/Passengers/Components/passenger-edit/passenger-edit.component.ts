@@ -1,9 +1,10 @@
 //importing libraries
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Passenger} from '../passenger.model';
-import { PassengerService } from '../passenger.service';
+
 import {  FormGroup ,Validators,FormControl} from '@angular/forms';
+import { Passenger } from '../../Models/passenger.model';
+import { PassengerService } from '../../Services/passenger.service';
 
 @Component({
   selector: 'app-passenger-edit',

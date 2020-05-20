@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Passenger} from '../passenger.model';
-import { PassengerService } from '../passenger.service';
+
 import {  FormGroup ,Validators,FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
+import { Passenger } from '../../Models/passenger.model';
+import { PassengerService } from '../../Services/passenger.service';
 
 
 @Component({

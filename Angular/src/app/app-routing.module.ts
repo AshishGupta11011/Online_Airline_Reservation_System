@@ -9,6 +9,8 @@ import { LoginCustomerComponent } from './Customers/Components/login-customer/lo
 import { RegisterCustomerComponent } from './Customers/Components/register-customer/register-customer.component';
 import { ProfileComponent } from './Customers/Components/profile/profile.component';
 import { PageNotFoundComponent } from './Customers/Components/page-not-found/page-not-found.component';
+import { UserCancellationComponent } from './Cancellations/user-cancellation/user-cancellation.component';
+import { AdminCancellationComponent } from './Cancellations/admin-cancellation/admin-cancellation.component';
 
 
 const routes: Routes = [
@@ -20,12 +22,13 @@ const routes: Routes = [
     { path: 'Register', component: RegisterCustomerComponent },
     { path: 'Profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'cancel/:bId', component: UserCancellationComponent },
-    { path: 'cancelList', component: AdminCancellationComponent }
-    { path: '**', component: PageNotFoundComponent },
+    { path: 'cancelList', component: AdminCancellationComponent },
+   
     //end
   // { path: '', redirectTo: 'AddPassenger', pathMatch: 'full' },
   { path: 'AddPassenger', component: PassengerComponent },
   { path: 'PassengerList', component: PassengerListComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
