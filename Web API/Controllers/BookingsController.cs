@@ -59,7 +59,7 @@ namespace BookingWebApi.Controllers
             // If AvailableSeats is less then user requuired seats then it does not stores data 
             if (booking.NoOfSeats > flight.AvailableSeats)
             {
-                return BadRequest("Seats unavailable");
+                return BadRequest("Seat unavailable.");
             }
 
             // Counts Ticket Fare
