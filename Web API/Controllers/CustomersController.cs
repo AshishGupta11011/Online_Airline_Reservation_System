@@ -166,7 +166,7 @@ namespace Airline_Reservation.web.Controllers
         {
 
 
-            if (!custService.DeleteCustomerBYId(id))
+            if (!custService.DeleteCustomerById(id))
             {
                 return NotFound();
             }

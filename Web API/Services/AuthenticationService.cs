@@ -7,6 +7,9 @@ using System.Web;
 
 namespace Airline_Reservation.web.Services
 {
+    /// <summary>
+    /// Authentication services that contains methods related to user accounts
+    /// </summary>
     public class AuthenticationService : IAuthenticationService
     {
         /// <summary>
