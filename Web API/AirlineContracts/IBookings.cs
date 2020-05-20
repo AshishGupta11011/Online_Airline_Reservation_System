@@ -8,7 +8,10 @@ using System.Collections.Generic;
 
 namespace Airline_Reservation.web.AirlineContracts
 {
-     public interface IBookings
+    /// <summary>
+    ///  Interface that implements Booking Service
+    /// </summary>
+    public interface IBookings
     {
         List<Booking> GetAllBookings();
     }
