@@ -21,17 +21,16 @@ export class BookingDataService {
   //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   //   return this.http.put<Employee>(this.url + '/UpdateEmployeeDetails/', employee, httpOptions);
   // }
-  
+
 
   constructor(private httpClient: HttpClient) { }
 
   apiPrefix: string = "https://localhost:44325/";
 
-  // updateBookingsToDatabase(searchBookingId: number): Observable<Booking> {
-  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  //   return this.httpClient.put<Booking>(this.apiPrefix + '/UpdateEmployeeDetails/', employee, httpOptions);
- 
-  // }
+  updateBookingsToDatabase(searchBookingId: number, bookingData: Booking): Observable<Booking> {
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    return this.httpClient.put<Booking>(this.apiPrefix + `api/bookings/` + searchBookingId, bookingData, httpOptions);
+  }
 
 
   /// <summary>

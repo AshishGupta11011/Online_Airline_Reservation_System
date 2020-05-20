@@ -140,11 +140,11 @@
               name="bookingId" [(ngModel)]="searchBookingId">
           </div>
           <div class="col-md-3">
-            <input readonly type="text" class="form-control" placeholder="Enter Origin" name="bookingId">
+            <input readonly type="text" class="form-control" placeholder="Enter Origin">
           </div>
           <!-- Search by date -->
           <div class="col-md-3 ">
-            <input readonly type="date" class="form-control" placeholder="Enter Date" name="DateOfJourney">
+            <input readonly class="form-control" placeholder="Enter Date" name="DateOfJourney">
           </div>
           <div class="text-center col-md-3">
             <button class="btn btn-blue text-white" [disabled]="checkButton()" (click)="onFindStatusClick()">Find
@@ -191,8 +191,8 @@
           <td>{{book.Class}}</td>
           <td>{{book.Source}}</td>
           <td>{{book.Destination}}</td>
-          <td>{{book.DateOfBooking}}</td>
-          <td>{{book.DateOfJourney}}</td>
+          <td>{{book.DateOfBooking | date: 'MM/dd/yyyy'}}</td>
+          <td>{{book.DateOfJourney | date: 'MM/dd/yyyy'}}</td>
           <td>{{book.NoOfSeats}}</td>
           <td>{{book.TicketFare}}</td>
           <td>{{book.CustomerId}}</td>
@@ -202,17 +202,83 @@
     <div class="row">
 
       <div class="text-center col-md-3">
-        <button class="btn btn-blue text-white" (click)="onUpdateClick()">Update </button>
+        <button class="btn btn-blue text-white" (click)="updateClickHandler()">Update </button>
       </div>
       <div class="text-center col-md-3">
         <button class="btn btn-blue text-white">Cancel</button>
       </div>
     </div>
 
-    <div>
-
-
+    <div *ngIf="isUpdateFormActive">
       <!-- flight Booking details are ended here  -->
 
+      <!-- flight Bookings Form is shown here  -->
+      <ng-container>
+        <div class="col-md-12 text-blue ">
+          <h2 class="border-bottom pb-2 mb-2">Update Your Booking Details </h2>
+          <form [formGroup]="updateForm">
+            <div class="form-group form-row ">
+              <label for="source" class="col-md-3 col-form-label">Flying From:</label>
+              <label for="destination" class="col-md-3 col-form-label">Flying To:</label>
+              <label for="deptDatepicker" class="col-md-2 col-form-label">Date of Journey :</label>
+              <label for="class" class="col-md-2 col-form-label">Class:</label>
+              <label for="noOfSeats" class="col-md-2 col-form-label">Travellers:</label>
+            </div>
+            <div class="form-group form-row ">
+              <div class="col-md-3">
+                <input readonly type="text" class="form-control" placeholder="Enter Origin" formControlName="Source">
+              </div>
+              <div class="col-md-3 ">
+                <input readonly type="text" class="form-control" placeholder="Enter Origin"
+                  formControlName="Destination">
+              </div>
+              <div class="col-md-2 datePickerContainer">
+                <div class="col-md-9 padding0">
+                  <input matInput [matDatepicker]="deptDatepicker" [min]="todayDate" formControlName="DateOfJourney"
+                    class="form-control border0" [ngClass]="{
+              'is-valid': updateForm.get('DateOfJourney').valid && updateForm.get('DateOfJourney').touched,
+              'is-invalid': updateForm.get('DateOfJourney').invalid && updateForm.get('DateOfJourney').touched
+            }">
+                </div>
+                <div class="col-md-3 padding0">
+                  <mat-datepicker-toggle matSuffix [for]="deptDatepicker"></mat-datepicker-toggle>
+                  <mat-datepicker #deptDatepicker></mat-datepicker>
+                </div>
+                <span class="text-danger"
+                  *ngIf="updateForm.get('DateOfJourney').invalid && updateForm.get('DateOfJourney').touched && updateForm.get('DateOfJourney').errors.required">
+                  * Please Enter your DateOfJourney </span>
+              </div>
+              <div class="col-md-2 flightClassContainer disableDiv">
+                <select matNativeControl (change)="onClassChange($event.target.value)" required>
+                  <option *ngFor="let flightClass of flightClassEntries" [value]="flightClass.value">
+                    {{ flightClass.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <input type="number" min="0" class="form-control" placeholder="No of Seats " name="noOfSeats"
+                  formControlName="NoOfSeats" [ngClass]="{
+                  'is-valid': updateForm.get('NoOfSeats').valid && updateForm.get('NoOfSeats').touched,
+                  'is-invalid': updateForm.get('NoOfSeats').invalid && updateForm.get('NoOfSeats').touched 
+                }">
+                <span class="noOfSeats"
+                  *ngIf="updateForm.get('NoOfSeats').invalid && updateForm.get('NoOfSeats').touched && updateForm.get('NoOfSeats').errors.required">
+                  Please Enter b/w 1-5 </span>
+              </div>
+
+            </div>
+            <div class="form-group form-row">
+
+              <div class="text-center col-md-3">
+                <button class="btn btn-blue text-white" [disabled]="!newForm.valid"
+                  (click)="onConfirmBookingClick()">Confirm
+                  Booking update</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </ng-container>
+      <!-- flight Bookings are ended here  -->
     </div>
     <!-- Booking Container Starts Here -->
