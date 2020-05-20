@@ -1,7 +1,9 @@
 ﻿//=============================================
 //  Developer:	<Anshika Jindal>
 //  Create date: <17th May,2020>
-//  Description : To perform business logic and accordingly return response to FlightController
+//  updated date: <20 may,2020>
+//  Description : FlightService is created
+//  Task : CRUD operation with Flight
 //=============================================
 
 using Airline_Reservation.web.Interface;
