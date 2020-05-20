@@ -22,18 +22,23 @@ using System.Web.Http.Description;
 
 namespace Airline_Reservation.web.Controllers
 {
+    /// <summary>
+    /// Controller for Bookings table that handles HTTP requests
+    /// </summary>
     public class BookingsController : ApiController
     {
-        private AirlineDBEntities db = new AirlineDBEntities();
-
         //declare BookingsService type instance variable
-       BookingsService bs;
-       BookingsController()
-        {
+        BookingsService bs;
 
+        /// <summary>
+        /// Constructor for BookingsController
+        /// </summary>
+        public BookingsController()
+        {
             //declare CustomersService type instance variable
             bs = new BookingsService();
         }
+
         /// <summary>
         /// Shows All Bookings from database
         /// </summary>
@@ -44,7 +49,6 @@ namespace Airline_Reservation.web.Controllers
         {
             try
             {
-
                 List<Booking> booking = bs.GetALLBookings();
                 return booking;
             }
@@ -55,6 +59,7 @@ namespace Airline_Reservation.web.Controllers
             }
         }
 
+
         // GET: api/Bookings/5
         [ResponseType(typeof(Booking))]
         public IHttpActionResult GetBooking(int bookingid)
@@ -62,21 +67,20 @@ namespace Airline_Reservation.web.Controllers
             //check the validity of the input
             if (ModelState.IsValid)
             {
-
                 try
-            {
-                Booking booking = bs.GetBookingById(bookingid);
-                if (booking == null)
                 {
-                    return NotFound();
+                    Booking booking = bs.GetBookingById(bookingid);
+                    if (booking == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(booking);
                 }
-                return Ok(booking);
-            }
-            catch (BookingsException)
-            {
+                catch (BookingsException)
+                {
 
-                throw;
-            }
+                    throw;
+                }
             }
 
             else
@@ -84,7 +88,8 @@ namespace Airline_Reservation.web.Controllers
                 //throw user defined exception object 
                 throw new BookingsException("The entered details are not valid");
             }
-        } 
+        }
+
 
         // PUT: api/Bookings/5
         [ResponseType(typeof(void))]
@@ -100,22 +105,14 @@ namespace Airline_Reservation.web.Controllers
                 return BadRequest();
             }
 
-            db.Entry(booking).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                bs.UpdateBooking(id, booking);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -132,7 +129,7 @@ namespace Airline_Reservation.web.Controllers
         [ResponseType(typeof(Booking))]
         public int PostBooking(Booking booking)
         {
-           
+
             if (!ModelState.IsValid)
             {
                 try
@@ -178,10 +175,6 @@ namespace Airline_Reservation.web.Controllers
             }
         }
 
-        private bool BookingExists(int id)
-        {
-            return db.Bookings.Count(e => e.BookingId == id) > 0;
-        }
     }
-  
+
 }
