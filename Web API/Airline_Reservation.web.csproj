@@ -153,6 +153,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirlineContracts\BookingService.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AirlineContracts\CancellationInterface.cs" />
     <Compile Include="Controllers\FlightController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\CustomersService.cs" />
     <Compile Include="Services\FlightException.cs" />
     <Compile Include="Services\FlightService.cs" />
