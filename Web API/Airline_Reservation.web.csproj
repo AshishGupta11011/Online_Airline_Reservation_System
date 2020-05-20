@@ -156,6 +156,7 @@
     <Compile Include="AirlineContracts\BookingService.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AirlineContracts\CancellationInterface.cs" />
+    <Compile Include="BookingException.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Models\AirLineModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -208,11 +209,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Services\BookingsException.cs" />
     <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\CustomersService.cs" />
     <Compile Include="Services\FlightException.cs" />
     <Compile Include="Services\FlightService.cs" />
     <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IBookingService.cs" />
     <Compile Include="Services\ICustomersServive.cs" />
     <Compile Include="Services\IFlightService.cs" />
     <Compile Include="ViewModels\User.cs" />

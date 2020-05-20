@@ -6,6 +6,7 @@
 //Task:CRUD with opreation with flight
 //***************************************************************************************
 
+using Airline_Reservation.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,7 +98,9 @@ namespace Airline_Reservation.web.Services
             return CreatedAtRoute("DefaultApi", new { id = booking.BookingId }, booking);
         }
 
-        
-     
+        internal Booking GetBookingsById(int bookingId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

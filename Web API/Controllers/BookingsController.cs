@@ -8,7 +8,6 @@
 
 using Airline_Reservation.web.Models;
 using Airline_Reservation.web.Services;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,91 +22,166 @@ using System.Web.Http.Description;
 
 namespace Airline_Reservation.web.Controllers
 {
-
     public class BookingsController : ApiController
     {
+        private AirlineDBEntities db = new AirlineDBEntities();
 
-        //declare BookingService type instance variable
-        BookingService bs;
-        BookingController ()
+        //declare BookingsService type instance variable
+       BookingsService bs;
+       BookingsController()
         {
-            bs = new BookingService();
+
+            //declare CustomersService type instance variable
+            bs = new BookingsService();
         }
-        public List<Booking> GetAllBooking()
+        /// <summary>
+        /// Shows All Bookings from database
+        /// </summary>
+        /// <returns>Data from Booking Table</returns>
+
+        // GET: api/Bookings
+        public List<Booking> GetBookings()
         {
             try
             {
-                 
-                List<Booking> bookingList = fs.GetBookings();
+
+                List<Booking> booking = bs.GetALLBookings();
+                return booking;
+            }
+            catch (BookingsException)
+            {
+
+                throw;
+            }
+        }
+
+        // GET: api/Bookings/5
+        [ResponseType(typeof(Booking))]
+        public IHttpActionResult GetBooking(int bookingid)
+        {
+            //check the validity of the input
+            if (ModelState.IsValid)
+            {
+
+                try
+            {
+                Booking booking = bs.GetBookingById(bookingid);
+                if (booking == null)
+                {
+                    return NotFound();
+                }
+                return Ok(booking);
+            }
+            catch (BookingsException)
+            {
+
+                throw;
+            }
+            }
+
+            else
+            {
+                //throw user defined exception object 
+                throw new BookingsException("The entered details are not valid");
+            }
+        } 
+
+        // PUT: api/Bookings/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutBooking(int id, Booking booking)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != booking.BookingId)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(booking).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BookingExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+        /// <summary>
+        /// Takes booking data from user and matches with availible Flights.
+        /// </summary>
+        /// <param name="booking"> booking details as bookingobject</param>
+        /// <returns>Saves data to database</returns>
+
+        // POST: api/Bookings
+        [ResponseType(typeof(Booking))]
+        public int PostBooking(Booking booking)
+        {
+           
+            if (!ModelState.IsValid)
+            {
+                try
+                {
+
+                    //Call AddFlight method to fetch all Flight
+                    int BookingId = bs.PostBooking(booking);
+
+                    //return the response
+                    return BookingId;
+                }
+                catch (FlightException)
+                {
+                    //rethrow
+                    throw;
+                }
+            }
+            else
+            {
+                //throw user defined exception object 
+                throw new BookingsException("The entered details are not valid");
+            }
+
+        }
+
+        // DELETE: api/Bookings/5
+        [ResponseType(typeof(Booking))]
+        public bool DeleteBookingById(int bookingId)
+        {
+            try
+            {
+
+                //Call GetAlllight() to fetch all Flight
+                bool isDeleted = bs.DeleteBookingById(bookingId);
 
                 //return the response
-                return bookingList;
+                return isDeleted;
             }
-            catch (BookingException)
+            catch (FlightException)
             {
                 //rethrow
                 throw;
             }
         }
-        public Booking GetBookingsById(int bookingId)
+
+        private bool BookingExists(int id)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    
-                    Booking flt = fs.GetBookingById(bookingId);
-
-                    //return the response
-                    return flt;
-                }
-                catch (BookingException)
-                {
-                    //rethrow
-                    throw;
-                }
-            }
-
-            else
-            {
-                //throw user defined exception object 
-                throw new BookingException("The entered details to fetch the bookings are not valid");
-            }
+            return db.Bookings.Count(e => e.BookingId == id) > 0;
         }
-
-        /// <summary>
-        /// Method updates or edits the changes of the passed booking in the booking table
-        /// </summary>
-        /// <param name="booking">object of type booking</param>
-        /// <returns>boolean value</returns>
-        public bool UpdateBooking(Booking booking)
-        {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
-                    //Call AddBooking method to fetch all Food Items 
-                    bool isUpdated = fs.UpdateBooking(booking);
-
-                    //return the response
-                    return isUpdated;
-                }
-                catch (BookingException)
-                {
-                    //rethrow
-                    throw;
-                }
-            }
-            else
-            {
-                //throw user defined exception object 
-                throw new BookingException("The entered details to fetch the Booking are not valid");
-            }
-        }
-
-
     }
+  
 }
