@@ -153,11 +153,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AirlineContracts\IBookings.cs" />
+    <Compile Include="AirlineContracts\IBooking.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AirlineContracts\CancellationInterface.cs" />
     <Compile Include="Controllers\FlightController.cs" />
-    <Compile Include="Exceptions\BookingsException.cs" />
+    <Compile Include="Exceptions\BookingException.cs" />
     <Compile Include="Models\AirLineModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -200,6 +200,7 @@
     <Compile Include="Models\usp_GetCancelledTicketById_Result.cs">
       <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\CancellationsService.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
