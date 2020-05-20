@@ -13,7 +13,7 @@ import { BookingDataService } from './Bookings/Services/booking-data.service';
 import { PassengerComponent } from './Passengers/Components/passenger/passenger.component';
 import { PassengerListComponent } from './Passengers/Components/passenger-list/passenger-list.component';
 import { SafePipe } from './Bookings/pipes/safe/safe.pipe';
-import { BookingDeatilsComponent } from './Bookings/Components/booking-deatils/booking-deatils.component';
+import { BookingDeatilsComponent } from './Bookings/Component/booking-deatils/booking-deatils.component';
 import { PassengerService } from './Passengers/Services/passenger.service';
 import { RegisterService } from './Customers/Services/Register.service';
 import { AuthenticateService } from './Customers/Services/Authenticate.service';
