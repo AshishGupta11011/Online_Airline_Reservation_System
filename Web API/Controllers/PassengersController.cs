@@ -180,6 +180,11 @@ namespace Airline_Reservation.web.Controllers
             }
             //else dispose will release only unmanaged resource
             base.Dispose(disposing);
-      
+        }
+        private bool PassengerExists(long id)
+        {
+            return db.Passengers.Count(e => e.PassengerId== id) > 0;
+        }
+
     }
 }
