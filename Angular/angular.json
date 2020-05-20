@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "flight"
+    }
+  },
+  "defaultProject": "flight",
+  "cli": {
+    "analytics": false
+  }
 }
