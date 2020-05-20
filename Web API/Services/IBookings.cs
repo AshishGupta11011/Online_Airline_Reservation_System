@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Airline_Reservation.web.Services
 {
     /// <summary>
-    /// created an interface that implements Booking Service Class
+    ///  Interface that implements Booking Service
     /// </summary>
     public interface IBookings
     {
