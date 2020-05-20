@@ -3,10 +3,12 @@
 //Create Date: <17th May,2020>
 //Last Updated Date: <20th May,2020>
 //Description:To perform Business logic and accordingly return response to Bookings.
-//Task:CRUD with opreation with flight
+//Task:CRUD with opreation with booking
 //***************************************************************************************
 
 using Airline_Reservation.web.Models;
+using Airline_Reservation.web.Services;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,94 +21,93 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 
-namespace BookingWebApi.Controllers
+namespace Airline_Reservation.web.Controllers
 {
+
     public class BookingsController : ApiController
     {
-        private AirlineDBEntities db = new AirlineDBEntities();
 
-        /// <summary>
-        /// Shows All Bookings from database
-        /// </summary>
-        /// <returns>Data from Booking Table</returns>
-        ///GET: api/Bookings
-        public IQueryable<Booking> GetBookings()
+        //declare BookingService type instance variable
+        BookingService bs;
+        BookingController ()
         {
-            return db.Bookings;
+            bs = new BookingService();
+        }
+        public List<Booking> GetAllBooking()
+        {
+            try
+            {
+                 
+                List<Booking> bookingList = fs.GetBookings();
+
+                //return the response
+                return bookingList;
+            }
+            catch (BookingException)
+            {
+                //rethrow
+                throw;
+            }
+        }
+        public Booking GetBookingsById(int bookingId)
+        {
+            //check the validity of the input
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    
+                    Booking flt = fs.GetBookingById(bookingId);
+
+                    //return the response
+                    return flt;
+                }
+                catch (BookingException)
+                {
+                    //rethrow
+                    throw;
+                }
+            }
+
+            else
+            {
+                //throw user defined exception object 
+                throw new BookingException("The entered details to fetch the bookings are not valid");
+            }
         }
 
         /// <summary>
-        /// Takes booking data from user and matches with availible Flights.
+        /// Method updates or edits the changes of the passed booking in the booking table
         /// </summary>
-        /// <param name="booking"> booking details as bookingobject</param>
-        /// <returns>Saves data to database</returns>
-        ///POST: api/Bookings
-        [ResponseType(typeof(Booking))]
-        public IHttpActionResult PostBooking(Booking booking)
+        /// <param name="booking">object of type booking</param>
+        /// <returns>boolean value</returns>
+        public bool UpdateBooking(Booking booking)
         {
-            // Checks If there is destination and source is availible
-            Flight flight = db.Flights.Where<Flight>(
-                f => booking.Destination.Equals(f.Destination)
-                && booking.Source.Equals(f.Source)
-                ).First();
-
-            // If data does not matches with flight data then it is null
-            if (flight == null)
+            //check the validity of the input
+            if (ModelState.IsValid)
             {
-                return BadRequest("Invalid Details");
-            }
+                try
+                {
 
-            // If AvailableSeats is less then user requuired seats then it does not stores data 
-            if (booking.NoOfSeats > flight.AvailableSeats)
+                    //Call AddBooking method to fetch all Food Items 
+                    bool isUpdated = fs.UpdateBooking(booking);
+
+                    //return the response
+                    return isUpdated;
+                }
+                catch (BookingException)
+                {
+                    //rethrow
+                    throw;
+                }
+            }
+            else
             {
-                return BadRequest("Seat unavailable.");
+                //throw user defined exception object 
+                throw new BookingException("The entered details to fetch the Booking are not valid");
             }
-
-            // Counts Ticket Fare
-            booking.TicketFare = booking.NoOfSeats * 2000;
-
-            // Sets Ticket Status
-            booking.TicketStatus = "NOTC";
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //Adds booking data to booking table 
-            db.Bookings.Add(booking);
-            //Save all cahnges made in the context in database
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = booking.BookingId }, booking);
         }
 
-        /// <summary>
-        /// Deletes booking on the basis of booking Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns> Ok satus if that booking Deatils are deleted</returns>
-        ///DELETE: api/Bookings/5
-        [ResponseType(typeof(Booking))]
-        public IHttpActionResult DeleteBooking(int id)
-        {
-            //Finds Booking data from booking tables and deletes it deatils 
-            Booking booking = db.Bookings.Find(id);
 
-            //If booking is null it shows not that it is not found 
-            if (booking == null)
-            {
-                return NotFound();
-            }
-            //from booking tables  deletes it deatils
-
-            db.Bookings.Remove(booking);
-            //Save all cahnges made in the context in database
-
-            db.SaveChanges();
-
-            return Ok(booking);
-        }
-
-       
     }
 }
