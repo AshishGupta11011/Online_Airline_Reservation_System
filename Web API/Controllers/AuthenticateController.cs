@@ -24,13 +24,18 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace Airline_Reservation.web.Controllers
-
 {
+    /// <summary>
+    /// Controller for Authentication for providing registration and Login functionalities
+    /// </summary>
     public class AuthenticateController : ApiController
     {
+        private AirlineDBEntities db;
 
-
-        private AirlineDBEntities db = new AirlineDBEntities();
+        public AuthenticateController()
+        {
+            db = new AirlineDBEntities();
+        }
 
 
         // POST: api/Authenticate
