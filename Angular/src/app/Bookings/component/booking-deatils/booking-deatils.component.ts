@@ -6,10 +6,6 @@
 //Task:CRUD with opreation with flight
 //***************************************************************************************
 
-
-
-
-
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -79,6 +75,8 @@ export class BookingDeatilsComponent implements OnInit {
   //Filter source and destination drop down menu 
   filterDestArgs: boolean;
   filterSourceArgs: boolean;
+  updateForm: FormGroup;
+  isUpdateFormActive: boolean = false;
   // filterArgs: String = '';
 
 
@@ -88,13 +86,23 @@ export class BookingDeatilsComponent implements OnInit {
     //bookings object aaray 
     this.bookings = [];
 
+    this.updateForm = new FormGroup({
+      BookingId: new FormControl(0),
+      Class: new FormControl(this.flightClassEntries[0].value),
+      Source: new FormControl("", [Validators.required]),
+      Destination: new FormControl("", [Validators.required]),
+      DateOfBooking: new FormControl(this.todayDate),
+      DateOfJourney: new FormControl(this.todayDate, [Validators.required]),
+      NoOfSeats: new FormControl(1, [Validators.max(5), Validators.min(1)]),
+    });
+
+
     //reactive form for booking data
     this.newForm = new FormGroup({
       Class: new FormControl(this.flightClassEntries[0].value),
       Source: new FormControl("", [Validators.required]),
       Destination: new FormControl("", [Validators.required]),
       DateOfBooking: new FormControl(this.todayDate),
-      //write code
       DateOfJourney: new FormControl(this.todayDate, [Validators.required]),
       NoOfSeats: new FormControl(1, [Validators.max(5), Validators.min(1)]),
     });
@@ -109,7 +117,9 @@ export class BookingDeatilsComponent implements OnInit {
       this.filterDestArgs = this.filterDestArgs ? false : false;
     }
   }
-
+  updateClickHandler() {
+    this.isUpdateFormActive = true;
+  }
   updateCityData(of: string, data) {
     if (of == 'from') {
       this.newForm.controls.Source.setValue(data.value);
@@ -139,23 +149,8 @@ export class BookingDeatilsComponent implements OnInit {
 
 
   }
+  
   /// update  booking details 
-  onUpdateClick() {
-    // if (this.newForm.valid == true) {
-      //accessing value of any form control (textbox etc.)
-       console.log('Form Value: ' + this.newForm.value);
-
-    //   this.bookingsService.updateBookingsToDatabase(this.searchBookingId).subscribe(
-    //     data => console.log(data),
-    //     error => console.log(error)
-    //   );
-    // }
-    // else {
-    //   console.log("Invalid data");
-      
-    // }
-  }
-
 
   //Posting Booking Deatils to Database
   onSubmitClick() {
@@ -193,11 +188,17 @@ export class BookingDeatilsComponent implements OnInit {
         this.bookings = [];
         this.bookings.push(obj);
       }
-      console.log('Data: ' + data);
-      console.log(this.bookings);
+      this.updateForm.controls.BookingId.setValue(this.bookings[0].BookingId ? this.bookings[0].BookingId : 100);
+      this.updateForm.controls.Class.setValue(this.bookings[0].Class ? this.bookings[0].Class : 'F');
+      this.updateForm.controls.NoOfSeats.setValue(this.bookings[0].NoOfSeats ? this.bookings[0].NoOfSeats : 1);
+      this.updateForm.controls.DateOfJourney.setValue(this.bookings[0].DateOfJourney ? this.bookings[0].DateOfJourney : this.todayDate);
+      this.updateForm.controls.Destination.setValue(this.bookings[0].Destination ? this.bookings[0].Destination : 'DEL');
+      this.updateForm.controls.Source.setValue(this.bookings[0].Source ? this.bookings[0].Source : 'JAI');
+      // console.log('Data: ' + data);
+      // console.log(this.bookings);
     },
       error => console.log(error));
-    console.log("Getting data from database");
+    // console.log("Getting data from database");
 
 
   }
@@ -223,6 +224,27 @@ export class BookingDeatilsComponent implements OnInit {
   onClassChange(event) {
     this.newForm.controls.Class.setValue(event);
     console.log(this.newForm.controls.Class.value);
+
+  }
+  onConfirmBookingClick() {
+    if (this.updateForm.valid == true) {
+      //accessing value of any form control (textbox etc.)
+      // console.log('Form Value: ' + this.newForm.value);
+
+      this.bookingsService.updateBookingsToDatabase(this.updateForm.value.BookingId, this.updateForm.value).subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      );
+      //clear textboxes
+      this.updateForm.reset();
+      this.updateForm.controls.DateOfBooking.setValue(this.todayDate);
+      this.updateForm.controls.Class.setValue(this.flightClassEntries[0].value);
+      this.updateForm.controls.NoOfSeats.setValue(1);
+    }
+    else {
+      console.log("Invalid data");
+      // this.onDetailsClick();
+    }
 
   }
 }

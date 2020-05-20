@@ -121,7 +121,7 @@ namespace Airline_Reservation.web.Controllers
                 if (isUpdated) { return StatusCode(HttpStatusCode.NoContent); }
                 else { return NotFound(); }
             }
-            catch (Exception)
+            catch (ApplicationException)
             {
 
                 throw;

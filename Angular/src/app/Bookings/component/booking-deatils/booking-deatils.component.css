@@ -156,3 +156,7 @@ margin-left: 74px;
  pointer-events: none;
  opacity: 0.6;
 }
+.disableDiv select{
+  background-color: #e9ecef;
+  opacity: 1;
+}

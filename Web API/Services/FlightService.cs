@@ -6,7 +6,7 @@
 //  Task : CRUD operation with Flight
 //=============================================
 
-using Airline_Reservation.web.Interface;
+
 using Airline_Reservation.web.Models;
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Airline_Reservation.web.Services
 
                 }
             }
-            catch (Exception ex)
+            catch (FlightException ex)
             {
                 //throw user defined FlightException
                 throw new FlightException(ex.Message);
@@ -87,7 +87,7 @@ namespace Airline_Reservation.web.Services
 
                 }
             }
-            catch (Exception ex)
+            catch (FlightException ex)
             {
                 //throw user defined FlightException
                 throw new FlightException(ex.Message);
@@ -116,7 +116,7 @@ namespace Airline_Reservation.web.Services
 
                 }
             }
-            catch (Exception ex)
+            catch (FlightException ex)
             {
                 //throw our user defined FlightException
                 throw new FlightException(ex.Message);
@@ -159,7 +159,7 @@ namespace Airline_Reservation.web.Services
 
                 }
             }
-            catch (Exception ex)
+            catch (FlightException ex)
             {
                 //throw user defined FlightException
                 throw new FlightException(ex.Message);
@@ -208,7 +208,7 @@ namespace Airline_Reservation.web.Services
                 }
 
             }
-            catch (Exception ex)
+            catch (FlightException ex)
             {
                 //throw user defined FlightException
                 throw new FlightException(ex.Message);
