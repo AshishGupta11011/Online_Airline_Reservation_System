@@ -19,6 +19,8 @@ const routes: Routes = [
     { path: 'login', component: LoginCustomerComponent },
     { path: 'Register', component: RegisterCustomerComponent },
     { path: 'Profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'cancel/:bId', component: UserCancellationComponent },
+    { path: 'cancelList', component: AdminCancellationComponent }
     { path: '**', component: PageNotFoundComponent },
     //end
   // { path: '', redirectTo: 'AddPassenger', pathMatch: 'full' },

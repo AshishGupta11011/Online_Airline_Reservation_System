@@ -1,9 +1,4 @@
-﻿//Developer Name:- Aniket Anand
-//Module Name   :- Cancellation Controller
-//Created       :- 14/05/2020
-//Modified      :- 19/05/2020
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,16 +12,9 @@ using Airline_Reservation.web.Models;
 
 namespace Airline_Reservation.web.Controllers
 {
-    /// <summary>
-    /// Cancellation class derived from base class ApiController
-    /// </summary>
     public class CancellationsController : ApiController
     {
-        //Creation of DBContext class object
-        CancellationsController()
-        {
-            AirlineDBEntities db = new AirlineDBEntities();
-        }
+        private AirlineDBEntities db = new AirlineDBEntities();
 
         /// <summary>
         /// A method of controller that returns list of cancelled tickets
@@ -137,7 +125,7 @@ namespace Airline_Reservation.web.Controllers
                     throw;
                 }
             }
-           return CreatedAtRoute("DefaultApi", new { id = cancellation.CancellationId }, cancellation);
+            return CreatedAtRoute("DefaultApi", new { id = cancellation.CancellationId }, cancellation);
         }
 
 
@@ -164,7 +152,7 @@ namespace Airline_Reservation.web.Controllers
         }
 
 
-        
+
         /// <summary>
         ///A method of controller that shows the details of cancelled tickets
         /// </summary>
@@ -175,23 +163,24 @@ namespace Airline_Reservation.web.Controllers
         public IHttpActionResult CancellationDetails(int bookingId)
         {
             Booking book = db.Bookings.Find(bookingId);
-            if(book==null)
+            if (book == null)
             {
                 return BadRequest();
             }
             //checks whether booking is cancelled or not
-            if(book.TicketStatus.Equals("CANC"))
+            if (book.TicketStatus.Equals("CANC"))
             {
                 return BadRequest("Booking Already Cancelled");
             }
 
-            Cancellation can = new Cancellation() {
+            Cancellation can = new Cancellation()
+            {
                 FlightId = book.FlightId,
                 BookingId = bookingId,
                 DateOfCancellation = DateTime.Now,
                 //checks whether date of journey is from which date
-                RefundAmount= CalculationOfRefund(bookingId,book.DateOfJourney<=DateTime.Now ? 0:1)
-           };
+                RefundAmount = CalculationOfRefund(bookingId, book.DateOfJourney <= DateTime.Now ? 0 : 1)
+            };
             db.Cancellations.Add(can);
             db.SaveChanges();
             //After adding the object to cancellation table, the status of booking will be updated to Cancelled in bookings table
@@ -208,7 +197,7 @@ namespace Airline_Reservation.web.Controllers
             flight.AvailableSeats = (int)(flightAvailableSeats + noOfSeats);
             //updating the available seats in flight table
             db.SaveChanges();
-             return Ok();
+            return Ok();
 
         }
 

@@ -1,0 +1,30 @@
+<p>admin-cancellation works!</p>
+<div class="jumbtron">
+    <h1 class="display-4 text-center"> Cancellation Data  </h1>
+    
+    
+    <div class="col-lg-6">
+    <table class="table table-dark">
+    
+        <thead style="text-align: center;" class="thead-dark">
+              <tr>
+              <th>Cancellation ID</th>
+              <th>Flight Id</th>
+              <th>Booking Id</th>
+              <th>Date Of Cancellation</th>
+              <th>Refund Amount</th>
+              </tr>
+        </thead>
+            <tbody>
+                <tr *ngFor="let cancellation of cancellationList">
+                    <td> {{ cancellation.CancellationId }} </td>
+                    <td> {{ cancellation.FlightId }} </td>
+                    <td> {{ cancellation.BookingId }} </td>
+                    <td> {{ cancellation.DateOfCancellation }} </td>
+                    <td> {{ cancellation.RefundAmount }} </td>
+                </tr>
+            </tbody>
+    </table>
+    </div>
+    </div>
+    

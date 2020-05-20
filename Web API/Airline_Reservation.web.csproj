@@ -135,13 +135,10 @@
       <DependentUpon>AirLineModel.edmx</DependentUpon>
       <LastGenOutput>AirLineModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\AirLineModel.edmx.diagram">
-      <DependentUpon>AirLineModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Models\AirLineModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AirLineModel.cs</LastGenOutput>
       <DependentUpon>AirLineModel.edmx</DependentUpon>
+      <LastGenOutput>AirLineModel.cs</LastGenOutput>
     </Content>
     <Content Include="polyfills-es2015.js" />
     <Content Include="polyfills-es5.js" />
@@ -156,26 +153,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="AirlineContracts\CancellationInterface.cs" />
-    <Compile Include="Services\CancellationsService.cs" />
-    <Compile Include="Controllers\AuthenticateController.cs" />
-    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CancellationsController.cs" />
-    <Compile Include="Controllers\CustomersController.cs" />
-    <Compile Include="Controllers\FlightsController.cs" />
-    <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AirLineModel.Context.cs">
-      <DependentUpon>AirLineModel.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AirLineModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AirLineModel.cs">
-      <DependentUpon>AirLineModel.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AirLineModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -203,8 +193,6 @@
     <Compile Include="Models\usp_GetCancelledTicketById_Result.cs">
       <DependentUpon>AirLineModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Services\FlightException.cs" />
-    <Compile Include="Services\FlightService.cs" />
     <Compile Include="ViewModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -216,6 +204,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AirLineModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\AirLineModel.edmx.diagram">
+      <DependentUpon>AirLineModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
     <Content Include="polyfills-es2015.js.map" />
     <Content Include="polyfills-es5.js.map" />
