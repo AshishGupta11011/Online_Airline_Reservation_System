@@ -1,0 +1,34 @@
+<div class="text-center col-md-3">
+    <button class="btn btn-blue text-white" (click)="onDetailsClick()">Show All Bookings</button>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr class="text-center text-uppercase">
+        <th>Booking Id</th>
+        <th>Flight Id</th>
+        <th>Class</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>DateOfBooking</th>
+        <th>DateOfJourney</th>
+        <th>NoOfSeats</th>
+        <th>Ticket Fare</th>
+        <th>CustomerId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of bookings">
+        <td>{{book.BookingId}}</td>
+        <td>{{book.FlightId}}</td>
+        <td>{{book.Class}}</td>
+        <td>{{book.Source}}</td>
+        <td>{{book.Destination}}</td>
+        <td>{{book.DateOfBooking}}</td>
+        <td>{{book.DateOfJourney}}</td>
+        <td>{{book.NoOfSeats}}</td>
+        <td>{{book.TicketFare}}</td>
+        <td>{{book.CustomerId}}</td>
+      </tr>
+    </tbody>
+  </table>
