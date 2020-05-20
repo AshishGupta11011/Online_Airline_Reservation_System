@@ -55,7 +55,7 @@ namespace Airline_Reservation.web.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        bool DeleteCustomerBYId(int id);
+        bool DeleteCustomerById(int id);
         /// <summary>
         /// Method to check Whether Customer Exists By using id
         /// </summary>

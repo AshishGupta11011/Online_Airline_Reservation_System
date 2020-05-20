@@ -209,7 +209,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Services\BookingsException.cs" />
+    <Compile Include="ExceptionLayer\BookingsException.cs" />
     <Compile Include="Services\BookingService.cs" />
     <Compile Include="Services\CustomersService.cs" />
     <Compile Include="Services\FlightException.cs" />

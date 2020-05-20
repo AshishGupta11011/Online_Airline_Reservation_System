@@ -32,7 +32,7 @@ namespace Airline_Reservation.web.Services
         /// <returns></returns>
         public List<Customer> GetALLCustomers()
         {
-            using (AirlineDBEntities db = new AirlineDBEntities())
+            AirlineDBEntities db = new AirlineDBEntities();
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 return db.Customers.ToList();
@@ -42,11 +42,11 @@ namespace Airline_Reservation.web.Services
         ///// <summary>
         ///// Method fetches the Customer corresponding to CustomerId
         ///// </summary>
-        ///// <param name="id"></param>
+        ///// <param name="id">id of customer</param>
         ///// <returns></returns>
         public Customer GetCustomerById(int id)
         {
-            using (AirlineDBEntities db = new AirlineDBEntities())
+            AirlineDBEntities db = new AirlineDBEntities();
             {
                 db.Configuration.LazyLoadingEnabled = false;
                 Customer customer = db.Customers.Find(id);
@@ -57,20 +57,38 @@ namespace Airline_Reservation.web.Services
         ///// <summary>
         ///// Method updates the details of existing cutomer's account details 
         ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="customer"></param>
+        ///// <param name="id">id of customer</param>
+        ///// <param name="customer">customer object with customer details</param>
         ///// <returns></returns>
         public bool UpdateCustomer(int id, Customer customer)
         {
-            using (AirlineDBEntities db = new AirlineDBEntities())
+            AirlineDBEntities db = new AirlineDBEntities();
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                db.Entry(customer).State = EntityState.Modified;
+                Customer existingCustomer = db.Customers.Where(temp => temp.CustomerId == id).FirstOrDefault();
+                
+                
 
                 try
                 {
-                    db.SaveChanges();
-                    return true;
+                    //update customer details if customer exists
+                    if (existingCustomer != null)
+                    {
+                        existingCustomer.DOB = customer.DOB;
+                        existingCustomer.Email = customer.Email;
+                        existingCustomer.Name = customer.Name;
+                        existingCustomer.PhoneNo = customer.PhoneNo;
+                        existingCustomer.Pwd = customer.Pwd;
+                        existingCustomer.ResidingAddress = customer.ResidingAddress;
+                        existingCustomer.WalletBalance = customer.WalletBalance;
+
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -92,7 +110,7 @@ namespace Airline_Reservation.web.Services
         /// <returns></returns>
         public bool AddCustomer(Customer customer)
         {
-            using (AirlineDBEntities db = new AirlineDBEntities())
+            AirlineDBEntities db = new AirlineDBEntities();
             {
 
                 if ((db.Customers.Count(c => c.Email == customer.Email)) == 0)
@@ -116,9 +134,9 @@ namespace Airline_Reservation.web.Services
         ///// </summary>
         ///// <param name="id"></param>
         ///// <returns></returns>
-        public bool DeleteCustomerBYId(int id)
+        public bool DeleteCustomerById(int id)
         {
-            using (AirlineDBEntities db = new AirlineDBEntities())
+            AirlineDBEntities db = new AirlineDBEntities();
             {
                 Customer customer = db.Customers.Find(id);
                 db.Configuration.LazyLoadingEnabled = false;
@@ -154,7 +172,5 @@ namespace Airline_Reservation.web.Services
                 return db.Customers.Count(e => e.CustomerId == id) > 0;
             }
         }
-
-
     }
 }
