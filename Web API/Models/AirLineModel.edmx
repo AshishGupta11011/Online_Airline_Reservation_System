@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AirlineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AirlineDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bookings">
           <Key>
             <PropertyRef Name="BookingId" />
@@ -203,8 +203,7 @@
             <End Role="Cancellations" EntitySet="Cancellations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AirlineDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -379,10 +378,10 @@
           </FunctionImport>
           <FunctionImport Name="sp_DeleteAllCustomers" />
           <FunctionImport Name="sp_DeleteCustomerById">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetCustomerById" ReturnType="Collection(AirlineDBModel.sp_GetCustomerById_Result)">
-            <Parameter Name="Id" Mode="In" Type="Int32" />
+          <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetCustomers" ReturnType="Collection(AirlineDBModel.sp_GetCustomers_Result)" />
           <FunctionImport Name="usp_AddFlight">
@@ -396,14 +395,14 @@
             <Parameter Name="AvailableSeats" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteCancelledTicketById">
-            <Parameter Name="BookingId" Mode="In" Type="Int32" />
+          <Parameter Name="BookingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_DeleteFlight">
-            <Parameter Name="FlightId" Mode="In" Type="Int32" />
+          <Parameter Name="FlightId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetAllCancelledTickets" ReturnType="Collection(AirlineDBModel.usp_GetAllCancelledTickets_Result)" />
           <FunctionImport Name="usp_GetCancelledTicketById" ReturnType="Collection(AirlineDBModel.usp_GetCancelledTicketById_Result)">
-            <Parameter Name="BookingId" Mode="In" Type="Int32" />
+          <Parameter Name="BookingId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateFlight">
             <Parameter Name="FlightId" Mode="In" Type="Int32" />
