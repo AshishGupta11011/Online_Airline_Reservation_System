@@ -20,6 +20,8 @@ namespace Airline_Reservation.web.Models
         public AirlineDBEntities()
             : base("name=AirlineDBEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -33,104 +35,6 @@ namespace Airline_Reservation.web.Models
         public virtual DbSet<Flight> Flights { get; set; }
         public virtual DbSet<Passenger> Passengers { get; set; }
     
-        public virtual int sp_CreateCustomer(string name, string email, string pwd, Nullable<System.DateTime> dOB, Nullable<decimal> walletBalance, string residingAddress, Nullable<long> phoneNo)
-        {
-            var nameParameter = name != null ?
-                new ObjectParameter("Name", name) :
-                new ObjectParameter("Name", typeof(string));
-    
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var pwdParameter = pwd != null ?
-                new ObjectParameter("Pwd", pwd) :
-                new ObjectParameter("Pwd", typeof(string));
-    
-            var dOBParameter = dOB.HasValue ?
-                new ObjectParameter("DOB", dOB) :
-                new ObjectParameter("DOB", typeof(System.DateTime));
-    
-            var walletBalanceParameter = walletBalance.HasValue ?
-                new ObjectParameter("WalletBalance", walletBalance) :
-                new ObjectParameter("WalletBalance", typeof(decimal));
-    
-            var residingAddressParameter = residingAddress != null ?
-                new ObjectParameter("ResidingAddress", residingAddress) :
-                new ObjectParameter("ResidingAddress", typeof(string));
-    
-            var phoneNoParameter = phoneNo.HasValue ?
-                new ObjectParameter("PhoneNo", phoneNo) :
-                new ObjectParameter("PhoneNo", typeof(long));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateCustomer", nameParameter, emailParameter, pwdParameter, dOBParameter, walletBalanceParameter, residingAddressParameter, phoneNoParameter);
-        }
-    
-        public virtual int sp_DeleteAllCustomers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteAllCustomers");
-        }
-    
-        public virtual int sp_DeleteCustomerById(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_DeleteCustomerById", idParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetCustomerById_Result> sp_GetCustomerById(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCustomerById_Result>("sp_GetCustomerById", idParameter);
-        }
-    
-        public virtual ObjectResult<sp_GetCustomers_Result> sp_GetCustomers()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetCustomers_Result>("sp_GetCustomers");
-        }
-    
-        public virtual int usp_AddFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.DateTime> departureTime, Nullable<System.DateTime> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
-        {
-            var flightIdParameter = flightId.HasValue ?
-                new ObjectParameter("FlightId", flightId) :
-                new ObjectParameter("FlightId", typeof(int));
-    
-            var flightNameParameter = flightName != null ?
-                new ObjectParameter("FlightName", flightName) :
-                new ObjectParameter("FlightName", typeof(string));
-    
-            var sourceParameter = source != null ?
-                new ObjectParameter("Source", source) :
-                new ObjectParameter("Source", typeof(string));
-    
-            var destinationParameter = destination != null ?
-                new ObjectParameter("Destination", destination) :
-                new ObjectParameter("Destination", typeof(string));
-    
-            var departureTimeParameter = departureTime.HasValue ?
-                new ObjectParameter("DepartureTime", departureTime) :
-                new ObjectParameter("DepartureTime", typeof(System.DateTime));
-    
-            var arrivalTimeParameter = arrivalTime.HasValue ?
-                new ObjectParameter("ArrivalTime", arrivalTime) :
-                new ObjectParameter("ArrivalTime", typeof(System.DateTime));
-    
-            var baggageLimitParameter = baggageLimit.HasValue ?
-                new ObjectParameter("BaggageLimit", baggageLimit) :
-                new ObjectParameter("BaggageLimit", typeof(int));
-    
-            var availableSeatsParameter = availableSeats.HasValue ?
-                new ObjectParameter("AvailableSeats", availableSeats) :
-                new ObjectParameter("AvailableSeats", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddFlight", flightIdParameter, flightNameParameter, sourceParameter, destinationParameter, departureTimeParameter, arrivalTimeParameter, baggageLimitParameter, availableSeatsParameter);
-        }
-    
         public virtual int usp_DeleteCancelledTicketById(Nullable<int> bookingId)
         {
             var bookingIdParameter = bookingId.HasValue ?
@@ -138,15 +42,6 @@ namespace Airline_Reservation.web.Models
                 new ObjectParameter("BookingId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteCancelledTicketById", bookingIdParameter);
-        }
-    
-        public virtual int usp_DeleteFlight(Nullable<int> flightId)
-        {
-            var flightIdParameter = flightId.HasValue ?
-                new ObjectParameter("FlightId", flightId) :
-                new ObjectParameter("FlightId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_DeleteFlight", flightIdParameter);
         }
     
         public virtual ObjectResult<usp_GetAllCancelledTickets_Result> usp_GetAllCancelledTickets()
@@ -161,43 +56,6 @@ namespace Airline_Reservation.web.Models
                 new ObjectParameter("BookingId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetCancelledTicketById_Result>("usp_GetCancelledTicketById", bookingIdParameter);
-        }
-    
-        public virtual int usp_UpdateFlight(Nullable<int> flightId, string flightName, string source, string destination, Nullable<System.DateTime> departureTime, Nullable<System.DateTime> arrivalTime, Nullable<int> baggageLimit, Nullable<int> availableSeats)
-        {
-            var flightIdParameter = flightId.HasValue ?
-                new ObjectParameter("FlightId", flightId) :
-                new ObjectParameter("FlightId", typeof(int));
-    
-            var flightNameParameter = flightName != null ?
-                new ObjectParameter("FlightName", flightName) :
-                new ObjectParameter("FlightName", typeof(string));
-    
-            var sourceParameter = source != null ?
-                new ObjectParameter("Source", source) :
-                new ObjectParameter("Source", typeof(string));
-    
-            var destinationParameter = destination != null ?
-                new ObjectParameter("Destination", destination) :
-                new ObjectParameter("Destination", typeof(string));
-    
-            var departureTimeParameter = departureTime.HasValue ?
-                new ObjectParameter("DepartureTime", departureTime) :
-                new ObjectParameter("DepartureTime", typeof(System.DateTime));
-    
-            var arrivalTimeParameter = arrivalTime.HasValue ?
-                new ObjectParameter("ArrivalTime", arrivalTime) :
-                new ObjectParameter("ArrivalTime", typeof(System.DateTime));
-    
-            var baggageLimitParameter = baggageLimit.HasValue ?
-                new ObjectParameter("BaggageLimit", baggageLimit) :
-                new ObjectParameter("BaggageLimit", typeof(int));
-    
-            var availableSeatsParameter = availableSeats.HasValue ?
-                new ObjectParameter("AvailableSeats", availableSeats) :
-                new ObjectParameter("AvailableSeats", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateFlight", flightIdParameter, flightNameParameter, sourceParameter, destinationParameter, departureTimeParameter, arrivalTimeParameter, baggageLimitParameter, availableSeatsParameter);
         }
     }
 }
