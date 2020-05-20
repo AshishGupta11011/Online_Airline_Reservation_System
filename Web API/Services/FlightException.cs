@@ -13,7 +13,7 @@ namespace Airline_Reservation.web.Services
 {
     [Serializable]
     //FlightException is created 
-    internal class FlightException : Exception
+    internal class FlightException : ApplicationException
     {
         public FlightException()
         {
@@ -23,7 +23,7 @@ namespace Airline_Reservation.web.Services
         {
         }
 
-        public FlightException(string message, Exception innerException) : base(message, innerException)
+        public FlightException(string message, System.Exception innerException) : base(message, innerException)
         {
         }
 
