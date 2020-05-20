@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace Airline_Reservation.web.Interface
 {
     interface CancellationInterface
-    { 
+    {
     }
 }

@@ -62,3 +62,31 @@ margin-left: 74px;
   box-shadow: 18px -36px 0 #3d57b2, 36px -72px 0 #8194d4;
 }
 /* Header css end */
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Ashisih */
+/* You can add global styles to this file, and also import other style files */
+
+  /* ----background image */
+  
+  .bg{
+    background-image: url(assets\Images\mountainview.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:  center ;
+    
+    height: 100%;
+    z-index: -1;
+    
+}
+ 
+body {
+  padding-bottom:20px; /* height of the footer */
+  }
+
+
+/* End */
