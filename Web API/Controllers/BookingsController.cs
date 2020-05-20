@@ -6,6 +6,7 @@
 //Task:CRUD with opreation with booking
 //***************************************************************************************
 
+using Airline_Reservation.web.CustomExceptions;
 using Airline_Reservation.web.Models;
 using Airline_Reservation.web.Services;
 using System;

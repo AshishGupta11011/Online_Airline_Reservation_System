@@ -4,12 +4,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace Airline_Reservation.web.Services
+namespace Airline_Reservation.web.CustomExceptions
 {
     /// <summary>
     /// Exception class that represents exception while processing Bookings table
     /// </summary>
-    public class BookingsException : Exception
+    public class BookingsException : ApplicationException
     {
         public BookingsException()
         {

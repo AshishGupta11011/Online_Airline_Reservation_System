@@ -14,7 +14,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
-using Airline_Reservation.web.Exception;
+using Airline_Reservation.web.CustomExceptions;
 using Airline_Reservation.web.Models;
 
 namespace Airline_Reservation.web.Services

@@ -2,7 +2,6 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PassengerComponent } from './Passengers/Components/passenger/passenger.component';
 import { PassengerListComponent } from './Passengers/Components/passenger-list/passenger-list.component';
-import { BookingComponent } from './Customers/Components/booking/booking.component';
 import { AuthGuard } from './Customers/Services/Guard/auth.guard';
 import { AdminComponent } from './Customers/Components/admin/admin.component';
 import { LoginCustomerComponent } from './Customers/Components/login-customer/login-customer.component';
@@ -13,13 +12,14 @@ import { AdminCancellationComponent } from './Cancellations/Components/admin-can
 import { UserCancellationComponent } from './Cancellations/Components/user-cancellation/user-cancellation.component';
 import { PassengerEditComponent } from './Passengers/Components/passenger-edit/passenger-edit.component';
 import { ListOfCustomersComponent } from './Customers/Components/list-of-customers/list-of-customers.component';
+import { BookingDeatilsComponent } from './Bookings/Components/booking-deatils/booking-deatils.component';
 
 
 const routes: Routes = [
     //ashish
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     // { path: 'booking', component: BookingComponent, canActivate: [AuthGuard] },
-    { path: 'booking', component: BookingComponent },
+    { path: 'booking', component: BookingDeatilsComponent },
     
     { path: 'admin', component: AdminComponent },
     { path: 'login', component: LoginCustomerComponent },

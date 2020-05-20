@@ -8,97 +8,110 @@
 
 
 <div class="container-fluid ">
-{{customerModel | json}}
-    <div class="row">
+    <form #userform="ngForm" novalidate (ngSubmit)="UpdateCust()">
         <!-- {{customerModel | json}} -->
-        <div class=" card mx-auto w-75 rounded-lg border border-success shadow  border-top-0 mt-1 mb-3">
+        <div class="row">
+            <!-- {{customerModel | json}} -->
+            <div class=" card mx-auto w-75 rounded-lg border border-success shadow  border-top-0 mt-1 mb-3">
 
-            <div class="row">
-                            <div class="col card-body w-50  ">
-
-
-                <form #userform="ngForm" novalidate (ngSubmit)=UpdateCust()>
-
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" name="name" #name="ngModel" class="form-control"
-                            [class.is-invalid]="name.invalid && name.touched" required [(ngModel)]="customerModel.Name">
-                        <small class="text-danger" [class.d-none]="name.valid || name.untouched">invalid
-                            Name</small>
-                    </div>
+                <div class="row">
+                    <div class="col card-body w-50  ">
 
 
-                    <div class="form-group">
-                        <label class="mt-2" for="email">Email:</label>
-                        <input disabled type="text" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                            #email="ngModel" class="form-control" [class.is-invalid]="email.invalid && email.touched"
-                            required [(ngModel)]="customerModel.Email">
-                        <div *ngIf="email.errors && email.touched">
-                            <small class="text-danger" *ngIf="email.errors.pattern">pattern is wrong</small>
-                            <small class="text-danger" *ngIf="email.errors.required">email is required</small>
+
+
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" #name="ngModel" class="form-control"
+                                [class.is-invalid]="name.invalid && name.touched" required
+                                [(ngModel)]="customerModel.Name">
+                            <small class="text-danger" [class.d-none]="name.valid || name.untouched">invalid
+                                Name</small>
                         </div>
+
+
+                        <div class="form-group">
+                            <label class="mt-2" for="email">Email:</label>
+                            <input disabled type="text" name="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                #email="ngModel" class="form-control"
+                                [class.is-invalid]="email.invalid && email.touched" required
+                                [(ngModel)]="customerModel.Email">
+                            <div *ngIf="email.errors && email.touched">
+                                <small class="text-danger" *ngIf="email.errors.pattern">pattern is wrong</small>
+                                <small class="text-danger" *ngIf="email.errors.required">email is required</small>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="mt-2" for="password">Password:</label>
+                            <input type="password" name="password" #password="ngModel" class="form-control"
+                                [class.is-invalid]="password.invalid && password.touched" required
+                                [(ngModel)]="customerModel.Pwd">
+                            <small class="text-danger" [class.d-none]="password.valid || password.untouched">invalid
+                                Password</small>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="mt-2" for="dob">DateOfBirth:</label>
+                            <input type="date" name="dob" #dob="ngModel" class="form-control"
+                                [class.is-invalid]="dob.invalid && dob.touched" required
+                                [(ngModel)]="customerModel.DOB ">
+                            <small class="text-danger" [class.d-none]="dob.valid || dob.untouched">invalid
+                                Dateofbirth</small>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="mt-2" for="balance">WalletBalance:</label>
+                            <input type="number" name="balance" #balance="ngModel" pattern="^[1-9]\d*$"
+                                class="form-control" [class.is-invalid]="balance.invalid && balance.touched" required
+                                [(ngModel)]="customerModel.WalletBalance">
+                            <small class="text-danger" [class.d-none]="balance.valid || balance.untouched">invalid
+                                Amount</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mt-2" for="phoneno">Phone No:</label>
+                            <input type="number" name="phoneno" #phoneno="ngModel" pattern="^[1-9]\d*$"
+                                class="form-control" [class.is-invalid]="phoneno.invalid && phoneno.touched" required
+                                [(ngModel)]="customerModel.PhoneNo">
+                            <small class="text-danger" [class.d-none]="phoneno.valid || phoneno.untouched">invalid
+                                phoneno</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="mt-2" for="address">Address:</label>
+                            <input type="text" name="address" #address="ngModel" class="form-control"
+                                [class.is-invalid]="address.invalid && address.touched" required
+                                [(ngModel)]="customerModel.ResidingAddress">
+                            <small class="text-danger" [class.d-none]="address.valid || address.untouched">invalid
+                                Address</small>
+                        </div>
+
+
+                    </div>
+                    <div class="col">
+                        <h1 class="mt-5 ml-3">My Profile</h1>
+
+                        <!-- <img class="pt-4" src="/assets/Images/User.jpg" alt="profile"> -->
+                        <div class="mt-3 mb-2">
+                            <button type="submit" [disabled]="userform.form.invalid " class="btn btn-primary">Update
+                                Account</button>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-danger ">Delete
+                                Account</button>
+                        </div>
+                        
+
                     </div>
 
-
-                    <div class="form-group">
-                        <label class="mt-2" for="password">Password:</label>
-                        <input type="password" name="password" #password="ngModel" class="form-control"
-                            [class.is-invalid]="password.invalid && password.touched" required
-                            [(ngModel)]="customerModel.Pwd">
-                        <small class="text-danger" [class.d-none]="password.valid || password.untouched">invalid
-                            Password</small>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="mt-2" for="dob">DateOfBirth:</label>
-                        <input type="date" name="dob"  #dob="ngModel" class="form-control"
-                            [class.is-invalid]="dob.invalid && dob.touched" required [(ngModel)]="customerModel.DOB ">
-                        <small class="text-danger" [class.d-none]="dob.valid || dob.untouched">invalid             
-                            Dateofbirth</small>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="mt-2" for="balance">WalletBalance:</label>
-                        <input type="number" name="balance" #balance="ngModel" pattern="^[1-9]\d*$" class="form-control"
-                            [class.is-invalid]="balance.invalid && balance.touched" required
-                            [(ngModel)]="customerModel.WalletBalance">
-                        <small class="text-danger" [class.d-none]="balance.valid || balance.untouched">invalid
-                            Amount</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="mt-2" for="phoneno">Phone No:</label>
-                        <input type="number" name="phoneno" #phoneno="ngModel" pattern="^[1-9]\d*$" class="form-control"
-                            [class.is-invalid]="phoneno.invalid && phoneno.touched" required
-                            [(ngModel)]="customerModel.PhoneNo">
-                        <small class="text-danger" [class.d-none]="phoneno.valid || phoneno.untouched">invalid
-                            phoneno</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="mt-2" for="address">Address:</label>
-                        <input type="text" name="address" #address="ngModel" class="form-control"
-                            [class.is-invalid]="address.invalid && address.touched" required
-                            [(ngModel)]="customerModel.ResidingAddress">
-                        <small class="text-danger" [class.d-none]="address.valid || address.untouched">invalid
-                            Address</small>
-                    </div>
-
-                    <div class=" mx-auto" style="width: 300px;">
-                        <button type="submit" [disabled]="userform.form.invalid " class="btn btn-primary">Update
-                            Account</button>
-                    </div>
-                </form>
+                </div>
             </div>
-            <div class="col">
-                <h1  class="mt-5 ml-3">My Profile</h1>
-                <img class="pt-4" src="assets\Images\User.jpg" alt="profile">
-                <button style="margin-top: 200px;margin-left: 40px;" class="btn btn-danger ">Delete Account</button>
-            
         </div>
-
-        </div>
-    </div>
+    </form>
 </div>
+

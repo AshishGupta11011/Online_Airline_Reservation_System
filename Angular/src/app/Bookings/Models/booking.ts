@@ -1,45 +1,33 @@
+//***************************************************************************************
+//Developer: <Ashita Gaur>
+//Create Date: <17th May,2020>
+//Last Updated Date: <20th May,2020>
+//Description:To perform Business logic and accordingly return response to Bookings.
+//Task:CRUD with opreation with flight
+//***************************************************************************************
 
 
 export class Booking {
-    
-    FlightId: number;
+    BookingId?: number;
     Class:string;
     Source: string;
     Destination: string;
     DateOfBooking: Date;
     DateOfJourney: Date;
     NoOfSeats: number;
-    TicketFare: number;
-    CustomerId: number;
-    
-    
-
     constructor(
-        
-        FlightId: number,
         Class: string,
         Source: string,
         Destination: string,
         DateOfBooking: Date,
         DateOfJourney: Date,
         NoOfSeats: number,
-        TicketFare: number,
-        CustomerId: number,
-   
-        
-
-    ) {
-       
-        this.FlightId = FlightId;
+   ) {
         this.Class = Class;
         this.Source = Source;
         this.Destination = Destination;
         this.DateOfBooking = DateOfBooking;
         this.DateOfJourney = DateOfJourney;
-        this.NoOfSeats = NoOfSeats;
-        this.TicketFare = TicketFare;
-        this.CustomerId = CustomerId;
-        
-        
+        this.NoOfSeats = NoOfSeats;   
     }
 }

@@ -20,6 +20,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using Airline_Reservation.web.CustomExceptions;
 
 namespace Airline_Reservation.web.Services
 {

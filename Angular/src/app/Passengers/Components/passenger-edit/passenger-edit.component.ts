@@ -66,7 +66,7 @@ export class PassengerEditComponent implements OnInit {
           console.log(resData);
         });
         this.newForm.reset();
-        this.router.navigate(['/PassengerList']);
+        this.router.navigate(['/allpassengers']);
    }
 
 }
