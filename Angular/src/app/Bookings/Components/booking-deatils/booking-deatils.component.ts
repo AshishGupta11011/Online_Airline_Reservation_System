@@ -3,7 +3,7 @@
 //Create Date: <17th May,2020>
 //Last Updated Date: <20th May,2020>
 //Description:To perform Business logic and accordingly return response to Bookings.
-//Task:CRUD with opreation with flight
+//Task:To create methods, properties ,validations and 
 //***************************************************************************************
 
 import { Component, OnInit, Input, HostListener } from '@angular/core';
@@ -24,7 +24,7 @@ export class BookingDeatilsComponent implements OnInit {
   // taking current date data
   todayDate: Date = new Date();
 
-  // flight class drop down menu datat
+  // flight class drop down menu data
   flightClassEntries = [{
     name: "First Class",
     value: "F"
@@ -85,6 +85,7 @@ export class BookingDeatilsComponent implements OnInit {
     //bookings object aaray 
     this.bookings = [];
 
+    //reactive form for updated booking data
     this.updateForm = new FormGroup({
       BookingId: new FormControl(0),
       Class: new FormControl(this.flightClassEntries[0].value),
@@ -208,7 +209,7 @@ export class BookingDeatilsComponent implements OnInit {
     else
       return false;
   }
-  // getting data from database
+  // getting  all booking data from database
   onDetailsClick() {
     //  To navigate to the bookings page
     //this.router.navigate(['/booking']);
