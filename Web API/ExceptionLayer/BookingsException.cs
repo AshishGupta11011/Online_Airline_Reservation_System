@@ -9,7 +9,7 @@ namespace Airline_Reservation.web.CustomExceptions
     /// <summary>
     /// Exception class that represents exception while processing Bookings table
     /// </summary>
-    public class BookingsException : ApplicationException
+    public class BookingsException : Exception
     {
         public BookingsException()
         {

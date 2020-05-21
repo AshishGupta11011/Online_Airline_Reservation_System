@@ -1,3 +1,11 @@
+//***************************************************************************************
+//Developer: <Ashita Gaur>
+//Create Date: <17th May,2020>
+//Last Updated Date: <20th May,2020>
+//Description:To perform Business logic and accordingly return response to Bookings.
+//Task:To create pipe for filter city in drop down menu of choose city input.
+//***************************************************************************************
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -16,6 +24,8 @@ export class FilterCityPipe implements PipeTransform {
       return items;
     }
     else {
+
+      // filter out one name from string
       var temparray = items;
       this.cityArray = temparray.filter(item =>
         item.name.toLowerCase().includes(filter.toLowerCase()));
