@@ -32,6 +32,10 @@ import { PassengerEditComponent } from './Passengers/Components/passenger-edit/p
 import { ListOfCustomersComponent } from './Customers/Components/list-of-customers/list-of-customers.component';
 import { FilterCityPipe } from './Bookings/pipes/filter-city/filter-city.pipe';
 import { BookingDataService } from './Bookings/Services/booking-data.service';
+import { AddComponent } from './Flights/Components/add/add.component';
+import { EditComponent } from './Flights/Components/edit/edit.component';
+import { ViewComponent } from './Flights/Components/view/view.component';
+
 
 
 
@@ -45,6 +49,10 @@ import { BookingDataService } from './Bookings/Services/booking-data.service';
     AppComponent,
     LoginCustomerComponent,
     RegisterCustomerComponent,
+
+    AddComponent,
+    EditComponent,
+    ViewComponent,
     
     AdminComponent,
     PageNotFoundComponent,
@@ -54,7 +62,8 @@ import { BookingDataService } from './Bookings/Services/booking-data.service';
    PassengerComponent,
    PassengerListComponent,
    PassengerEditComponent,
-   ListOfCustomersComponent
+   ListOfCustomersComponent,
+
     
   ],
   imports: [

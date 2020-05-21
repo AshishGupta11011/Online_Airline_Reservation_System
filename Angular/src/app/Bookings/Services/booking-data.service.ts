@@ -8,10 +8,9 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Booking } from '../model/booking';
-import { Flight } from '../model/flight';
 import { catchError } from 'rxjs/operators'
 import { throwError, Observable } from 'rxjs'
+import { Booking } from '../Models/booking';
 
 @Injectable({
   providedIn: 'root'
