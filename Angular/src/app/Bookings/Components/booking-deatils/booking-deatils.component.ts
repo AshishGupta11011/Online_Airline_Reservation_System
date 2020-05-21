@@ -1,16 +1,17 @@
 //***************************************************************************************
 //Developer: <Ashita Gaur>
 //Create Date: <17th May,2020>
-//Last Updated Date: <20th May,2020>
+//Last Updated Date: <21th May,2020>
 //Description:To perform Business logic and accordingly return response to Bookings.
 //Task:To create methods, properties ,validations and 
 //***************************************************************************************
 
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Booking } from '../../Models/booking';
 import { BookingDataService } from '../../Services/booking-data.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-booking-deatils',
@@ -20,7 +21,7 @@ import { BookingDataService } from '../../Services/booking-data.service';
 export class BookingDeatilsComponent implements OnInit {
 
 
-
+  @ViewChild('bookingSuccessModal') bookingSuccessModal;
   // taking current date data
   todayDate: Date = new Date();
 
@@ -76,11 +77,13 @@ export class BookingDeatilsComponent implements OnInit {
   filterSourceArgs: boolean;
   updateForm: FormGroup;
   isUpdateFormActive: boolean = false;
+  activeTabIndex: number = 1;
+  bookingIdForModal: any;
   // filterArgs: String = '';
 
 
   //constructor
-  constructor(private bookingsService: BookingDataService, private router: Router) {
+  constructor(private bookingsService: BookingDataService, private router: Router, @Inject(DOCUMENT) private document: Document) {
 
     //bookings object aaray 
     this.bookings = [];
@@ -108,6 +111,7 @@ export class BookingDeatilsComponent implements OnInit {
     });
   }
 
+  //document click listener to close autocomplete when click outside
   @HostListener('document:click', ['$event']) onMouseEnter(event) {
     // console.log(event.target.id);
     if (event.target.id != "sourceSearch") {
@@ -117,9 +121,17 @@ export class BookingDeatilsComponent implements OnInit {
       this.filterDestArgs = this.filterDestArgs ? false : false;
     }
   }
+
+
+  ngOnInit() {
+  }
+
+  //open update box when click
   updateClickHandler() {
     this.isUpdateFormActive = true;
   }
+
+  //city code fetch from city name
   updateCityData(of: string, data) {
     if (of == 'from') {
       this.newForm.controls.Source.setValue(data.value);
@@ -129,9 +141,13 @@ export class BookingDeatilsComponent implements OnInit {
     }
     this.autoCompleteClose();
   }
+
+  //auto complete dropdown close function
   autoCompleteClose() {
     this.filterSourceArgs = this.filterDestArgs = false;
   }
+
+  //filter args handler to function auto complete dropdown
   setArgsTrue(of: string) {
     if (of == 'from') {
       this.filterSourceArgs = true;
@@ -143,24 +159,22 @@ export class BookingDeatilsComponent implements OnInit {
     }
   }
 
-
-  //
-  ngOnInit() {
-
-
-  }
-  
-  /// update  booking details 
-
-  //Posting Booking Deatils to Database
+  //Create a Booking Deatils to Database
   onSubmitClick() {
     if (this.newForm.valid == true) {
       //accessing value of any form control (textbox etc.)
       // console.log('Form Value: ' + this.newForm.value);
 
       this.bookingsService.postBookingsToDatabase(this.newForm.value).subscribe(
-        data => console.log(data),
-        error => console.log(error)
+        data => {
+          this.bookingIdForModal = data;
+          this.document.body.classList.add('modal-open');
+          // this.bookingSuccessModal.open();
+        },
+        error => {
+          var message = this.errorHandler(error);
+          window.alert(message);
+        }
       );
       //clear textboxes
       this.newForm.reset();
@@ -171,13 +185,13 @@ export class BookingDeatilsComponent implements OnInit {
     }
     else {
       console.log("Invalid data");
-      // this.onDetailsClick();
     }
   }
 
-  //Finding Status by Id
+
+  //Finding flight Status by booking id
   onFindStatusClick() {
-    console.log(this.searchBookingId);
+    // console.log(this.searchBookingId);
     this.bookingsService.getBookingsById(this.searchBookingId).subscribe(data => {
       var obj: any
       obj = data as Booking[];
@@ -194,14 +208,11 @@ export class BookingDeatilsComponent implements OnInit {
       this.updateForm.controls.DateOfJourney.setValue(this.bookings[0].DateOfJourney ? this.bookings[0].DateOfJourney : this.todayDate);
       this.updateForm.controls.Destination.setValue(this.bookings[0].Destination ? this.bookings[0].Destination : 'DEL');
       this.updateForm.controls.Source.setValue(this.bookings[0].Source ? this.bookings[0].Source : 'JAI');
-      // console.log('Data: ' + data);
-      // console.log(this.bookings);
     },
       error => console.log(error));
-    // console.log("Getting data from database");
-
-
   }
+
+  // button disable if booking id is less then 100
   checkButton() {
     if (this.searchBookingId == undefined && this.searchBookingId < 100) {
       return true;
@@ -209,6 +220,7 @@ export class BookingDeatilsComponent implements OnInit {
     else
       return false;
   }
+
   // getting  all booking data from database
   onDetailsClick() {
     //  To navigate to the bookings page
@@ -224,27 +236,64 @@ export class BookingDeatilsComponent implements OnInit {
   onClassChange(event) {
     this.newForm.controls.Class.setValue(event);
     console.log(this.newForm.controls.Class.value);
-
   }
+
+  // update a booking data by booking id
   onUpdateBookingClick() {
     if (this.updateForm.valid == true) {
       //accessing value of any form control (textbox etc.)
-      // console.log('Form Value: ' + this.newForm.value);
-
       this.bookingsService.updateBookingsToDatabase(this.updateForm.value.BookingId, this.updateForm.value).subscribe(
         data => console.log(data),
         error => console.log(error)
       );
       //clear textboxes
       this.updateForm.reset();
+      this.isUpdateFormActive = false;
+      this.bookings = [];
       this.updateForm.controls.DateOfBooking.setValue(this.todayDate);
+      this.updateForm.controls.DateOfJourney.setValue(this.todayDate);
       this.updateForm.controls.Class.setValue(this.flightClassEntries[0].value);
       this.updateForm.controls.NoOfSeats.setValue(1);
     }
     else {
       console.log("Invalid data");
-      // this.onDetailsClick();
     }
 
+  }
+
+  // tab index updater to select a tab
+  updateTabIndex(value) {
+    this.activeTabIndex = value;
+    if (value == 2 || value == 3) {
+      this.searchBookingId = 100;
+      this.bookings = [];
+    }
+  }
+
+
+  //errror handling function
+  errorHandler(statusCode) {
+    var message = '';
+    switch (statusCode) {
+      case 500:
+        message = 'Bad Request';
+        break;
+      case 400: {
+        message = 'Server Unreachable';
+        break;
+      }
+      default: {
+        message = 'Something Wrong Happened';
+        break;
+      }
+    }
+    return message;
+  }
+
+  // modal function to close modal
+  modalClose() {
+    // window
+    this.document.body.classList.remove('modal-open');
+    this.bookingIdForModal = 0;
   }
 }

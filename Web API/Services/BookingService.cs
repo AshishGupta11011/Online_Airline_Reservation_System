@@ -68,26 +68,43 @@ namespace Airline_Reservation.web.Services
         {
             using (AirlineDBEntities db = new AirlineDBEntities())
             {
-                db.Configuration.LazyLoadingEnabled = false;
-                db.Entry(booking).State = EntityState.Modified;
+                //db.Configuration.LazyLoadingEnabled = false;
+                //db.Entry(booking).State = EntityState.Modified;
 
                 try
                 {
-                    db.SaveChanges();
-                    return true;
+
+                    //use LINQ query to find the Booking with  Bookingid
+                    Booking book = db.Bookings.Where(b => b.BookingId == id).FirstOrDefault();
+
+                    if (book != null)
+                    {
+                        //update  Booking  details 
+                        book.BookingId = booking.BookingId;
+                        book.Class = booking.Class;
+                        book.DateOfBooking = booking.DateOfBooking;
+                        book.DateOfJourney = booking.DateOfJourney;
+                        book.Destination = booking.Destination;
+                        book.NoOfSeats = booking.NoOfSeats;
+                        book.Source = booking.Source;
+                        book.TicketFare = booking.TicketFare;
+                        book.TicketStatus = booking.TicketStatus;
+                        //save changes to the database
+                        db.SaveChanges();
+
+                        return true;
+                    }
+                    else {
+                        throw new BookingsException("Booking does not exist");
+                    }
+
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (BookingsException ex)
                 {
-                    if (!BookingExists(id))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                } 
-            } 
+                    throw new BookingsException(ex.Message);
+                }
+
+            }
         }
 
         private bool BookingExists(int id)
@@ -123,15 +140,13 @@ namespace Airline_Reservation.web.Services
                 if (booking.NoOfSeats > flight.AvailableSeats)
                 {
                     throw new BookingsException("Seats unavailable");
-                }
+                    }
 
 
-                //Customer customer=db.Customers.Where<Flight>(
-                //    f => booking.Destination.Equals(f.Destination)
-                //    && booking.Source.Equals(f.Source)
-                //    ).First();
+                    //Customer customer = db.Customers.Where<Customer>(
+                    //    c => booking.CustomerId.Equals(c.CustomerId) ).First();
 
-                booking.FlightId = flight.FlightId;
+                    booking.FlightId = flight.FlightId;
                 booking.CustomerId = 100;
                 // Counts Ticket Fare
                 booking.TicketFare = booking.NoOfSeats * 2000;
@@ -152,7 +167,8 @@ namespace Airline_Reservation.web.Services
         catch (Exception ex)
             {
                 //throw user defined FlightException
-                throw new BookingsException(ex.Message);
+                throw new BookingsException("not available");
+
     }
 }
 
@@ -191,7 +207,7 @@ namespace Airline_Reservation.web.Services
             }
         }
 
-       
+
 
         public Booking GetBookingsById(int id)
         {

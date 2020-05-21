@@ -24,6 +24,8 @@ export class FilterCityPipe implements PipeTransform {
       return items;
     }
     else {
+
+      // filter out one name from string
       var temparray = items;
       this.cityArray = temparray.filter(item =>
         item.name.toLowerCase().includes(filter.toLowerCase()));

@@ -9,14 +9,9 @@
 using Airline_Reservation.web.CustomExceptions;
 using Airline_Reservation.web.Models;
 using Airline_Reservation.web.Services;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -63,14 +58,15 @@ namespace Airline_Reservation.web.Controllers
 
         // GET: api/Bookings/5
         [ResponseType(typeof(Booking))]
-        public IHttpActionResult GetBooking(int bookingid)
+        [Route("api/bookings/{bookingId}")]
+        public IHttpActionResult GetBooking(int bookingId)
         {
             //check the validity of the input
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Booking booking = bs.GetBookingById(bookingid);
+                    Booking booking = bs.GetBookingById(bookingId);
                     if (booking == null)
                     {
                         return NotFound();
@@ -94,29 +90,29 @@ namespace Airline_Reservation.web.Controllers
 
         // PUT: api/Bookings/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBooking(int id, Booking booking)
+        public bool PutBooking(int id, Booking booking)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
+                try
+                {
+                    bool isUpdated = bs.UpdateBooking(id, booking);
 
-            if (id != booking.BookingId)
-            {
-                return BadRequest();
-            }
+                    return isUpdated;
+                }
+                catch (BookingsException)
+                {
 
-
-            try
-            {
-                bs.UpdateBooking(id, booking);
+                    throw;
+                }
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                return NotFound();
-            }
+            //catch (DbUpdateConcurrencyException)
+            //{
 
-            return StatusCode(HttpStatusCode.NoContent);
+            //}
+            else { 
+            throw new BookingsException("The entered details to fetch booking are not valid");
+            }
         }
 
 
@@ -131,13 +127,13 @@ namespace Airline_Reservation.web.Controllers
         public int PostBooking(Booking booking)
         {
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
 
                     //Call AddFlight method to fetch all Flight
-                    int BookingId = bs.PostBooking(booking);
+                    int BookingId = bs.AddBooking(booking);
 
                     //return the response
                     return BookingId;
