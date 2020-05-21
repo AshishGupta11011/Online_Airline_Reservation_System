@@ -144,6 +144,27 @@ namespace Airline_Reservation.web.Controllers
             return CreatedAtRoute("DefaultApi", new { id = passenger.PassengerId }, passenger);
         }
 
+
+        [HttpGet]
+        [ResponseType(typeof(string))]
+        [Route("api/Passengers/ValidateBookingId/{BookingId}")]
+        public IHttpActionResult ValidateBookingId(int BookingId)
+        {
+            try
+            {
+                Booking book = db.Bookings.Find(BookingId);
+                if (book != null)
+                {
+                    return Ok("007");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(BookingId.ToString());
+        }
+
         /// <summary>
         /// Deleting the record of passenger by  pssenger id
         /// </summary>

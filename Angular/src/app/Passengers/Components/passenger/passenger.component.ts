@@ -4,7 +4,7 @@ import {  FormGroup ,Validators,FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Passenger } from '../../Models/passenger.model';
 import { PassengerService } from '../../Services/passenger.service';
-
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-passenger',
@@ -53,15 +53,32 @@ export class PassengerComponent implements OnInit {
         console.log(this.newForm.value);
         this.service.addPassenger(passenger).subscribe(resData => {
           console.log(resData);
+           alert('Passenger added successfully !');
         });
         this.newForm.reset();
         this.router.navigate(['/allpassengers']);
 
     //delete button
-
       //this.service.deletePassenger('109').subscribe(response => {
       //console.log(response);
     //});
-
+   }
+   //validation on booking id
+   validateBookingId(control: FormControl): Observable<any> | Promise<any> {
+     const promise = new Promise((resolve, reject) => {
+       this.service.validateBookingId(control.value).subscribe(responseBookingId => {
+       console.log(responseBookingId);
+       if (responseBookingId.toString() === "007") {
+         alert('The booking id already exists !');
+         resolve({'valid': false});
+       } else {
+         resolve(null);
+       }
+     },
+     (error) => {
+       console.log(error.error.Message);
+     });
+    });
+     return promise;
    }
 }

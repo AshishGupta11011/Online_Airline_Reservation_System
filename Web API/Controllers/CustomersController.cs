@@ -56,7 +56,7 @@ namespace Airline_Reservation.web.Controllers
             {
                 IEnumerable<Claim> claims = identity.Claims;
                 var role = claims.Where(r => r.Type == "Email").FirstOrDefault()?.Value;
-                if (role == "ashishguptaid@gmail.com")
+                if (role == "chouhanmamta1998@gmail.com")
                 {
                    
                     return Ok(custService.GetALLCustomers());

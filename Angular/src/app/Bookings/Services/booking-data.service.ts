@@ -24,7 +24,7 @@ export class BookingDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  apiPrefix: string = "https://localhost:44325/";
+  apiPrefix: string = "https://localhost:53981/";
 
   updateBookingsToDatabase(searchBookingId: number, bookingData: Booking): Observable<Booking> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
