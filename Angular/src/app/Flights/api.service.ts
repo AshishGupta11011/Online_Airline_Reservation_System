@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from "rxjs/index";
-import { Flight } from '../Models/flight';
-
+import { Flight } from './Models/Flight.Model';
 
 
 @Injectable({
@@ -11,7 +10,7 @@ import { Flight } from '../Models/flight';
 export class ApiService {
 
   constructor(private httpclient: HttpClient) { }
-  apiPrefix: string = "http://localhost:53981";
+  apiPrefix: string = "https://localhost:44383";
 
     getAllFlights(): Observable<Flight[]>
     {

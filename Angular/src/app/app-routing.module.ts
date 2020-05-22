@@ -13,9 +13,6 @@ import { UserCancellationComponent } from './Cancellations/Components/user-cance
 import { PassengerEditComponent } from './Passengers/Components/passenger-edit/passenger-edit.component';
 import { ListOfCustomersComponent } from './Customers/Components/list-of-customers/list-of-customers.component';
 import { BookingDeatilsComponent } from './Bookings/Components/booking-deatils/booking-deatils.component';
-import { AddComponent } from './Flights/Components/add/add.component';
-import { ViewComponent } from './Flights/Components/view/view.component';
-import { EditComponent } from './Flights/Components/edit/edit.component';
 
 
 const routes: Routes = [
@@ -31,9 +28,7 @@ const routes: Routes = [
     {path : 'allpassengers' , component: PassengerListComponent},
     {path: 'editpassenger/:pId', component : PassengerEditComponent},
     {path: 'Customerslist', component : ListOfCustomersComponent},
-    {path: 'addflight', component: AddComponent},
-    {path: 'viewflight', component:ViewComponent},
-    {path: 'editflight', component:EditComponent},
+    //end
   // { path: '', redirectTo: 'AddPassenger', pathMatch: 'full' },
   { path: 'AddPassenger', component: PassengerComponent },
   {path: 'Cancellationsadmin',component: AdminCancellationComponent},

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ApiService } from '../../Services/flights.service';
-
+import { ApiService } from 'src/app/api.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
