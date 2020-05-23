@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import { Flight } from 'src/app/Models/Flight.Model';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from '../../Services/flights.service';
+import { Flight } from '../../Models/flight';
 // import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -80,7 +80,8 @@ delete(FlightId){
   console.log(FlightId);
 }
 flightdata:any;
-temp:any = this.flightdata
+temp:any = this.flightdata;
+
 search(value1,value2){
   this.flightdata = this.temp;
 

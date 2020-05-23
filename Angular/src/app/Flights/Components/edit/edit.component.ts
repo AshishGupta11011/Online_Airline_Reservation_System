@@ -3,7 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from '../../Services/flights.service';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
