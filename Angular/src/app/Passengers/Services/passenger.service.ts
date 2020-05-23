@@ -32,10 +32,14 @@ export class PassengerService {
 
 //Method to delete passenger by PassengerId
   deletePassenger(pid: string) {
-    return this.http.delete('http://localhost:62850//api/Passengers/' + pid);
+    return this.http.delete('http://localhost:53981//api/Passengers/' + pid);
   }
 //Method to edit passenger by PassengerId
   editPassenger(newPassenger: Passenger, pid: string) {
-    return this.http.put('http://localhost:62850//api/Passengers/' + pid, newPassenger);
+    return this.http.put('http://localhost:53981//api/Passengers/' + pid, newPassenger);
   }
+  //method to validate booking id
+  validateBookingId(BookingId: string) {
+     return this.http.get('http://localhost:53981//api/Passengers/ValidateBookingId/' + BookingId);
+   }
 }

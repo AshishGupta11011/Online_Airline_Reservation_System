@@ -3,7 +3,7 @@
 //Create Date: <17th May,2020>
 //Last Updated Date: <20th May,2020>
 //Description:To perform Business logic and accordingly return response to Bookings.
-//Task:CRUD with opreation with flight
+//Task:To create methods to connect fronted to backend
 //***************************************************************************************
 
 import { Injectable } from '@angular/core';
@@ -24,11 +24,10 @@ export class BookingDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  apiPrefix: string = "https://localhost:44325/";
+  apiPrefix: string = "http://localhost:53981/";
 
   updateBookingsToDatabase(searchBookingId: number, bookingData: Booking): Observable<Booking> {
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.httpClient.put<Booking>(this.apiPrefix + `api/bookings/` + searchBookingId, bookingData, httpOptions);
+    return this.httpClient.put<Booking>(this.apiPrefix + `api/bookings?id=${searchBookingId}`, bookingData);
   }
 
 
@@ -38,11 +37,11 @@ export class BookingDataService {
   /// <returns> Ok booking table data in html form</returns>
 
   getBookingsFromDatabase() {
-    return this.httpClient.get(this.apiPrefix + `api/bookings`).pipe(catchError(this.errorHandler));
+    return this.httpClient.get(this.apiPrefix + `api/Bookings`).pipe(catchError(this.errorHandler));
   }
 
   getBookingsById(bookingId: Number) {
-    return this.httpClient.get(this.apiPrefix + `api/bookings/` + bookingId);
+    return this.httpClient.get(this.apiPrefix + `api/Bookings/` + bookingId);
   }
 
   /// <summary>
@@ -53,7 +52,7 @@ export class BookingDataService {
 
 
   postBookingsToDatabase(bookings: Booking) {
-    return this.httpClient.post<Booking>(this.apiPrefix + `api/bookings`, bookings).pipe(catchError(this.errorHandler));
+    return this.httpClient.post<Booking>(this.apiPrefix + `api/Bookings/`, bookings).pipe(catchError(this.errorHandler));
   }
 
   // Any Error in this contex will be thrown by error handler

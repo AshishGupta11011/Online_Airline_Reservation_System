@@ -13,7 +13,7 @@ import { Customer } from '../Models/Customer';
 export class RegisterService {
   // urlfake = 'http://localhost:53981/api/Customers/GetCustomerByname'
 
-  url: string = 'http://localhost:53981//api/Customers';
+  url: string = 'http://localhost:53981/api/Customers';
 
   constructor(private http: HttpClient) { }
 
